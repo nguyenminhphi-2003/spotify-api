@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 import logging
 from pathlib import Path
 from mongoengine import connect
+import environ
+
+env = environ.Env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -86,7 +89,7 @@ DATABASES = {
     }
 }
 
-MONGODB_CONNECTION_STRING = 'mongodb+srv://root:12345@cluster0.2ehyc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
+MONGODB_CONNECTION_STRING = env('MONGODB_CONNECTION_STRING')
 
 try:
     connect('spotify', host=MONGODB_CONNECTION_STRING)
