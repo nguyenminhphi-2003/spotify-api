@@ -23,8 +23,8 @@ class Album(Document):
     release_date = DateTimeField()
 
 
-class Playlist(Document):
-    title = StringField(max_length=100, required=True)
-    user_id = UUIDField(required=True)
-    songs = ListField(ReferenceField(Song), required=True)
-    created_at = DateTimeField(default=datetime.datetime.now())
+# class Playlist(Document):
+#     title = StringField(max_length=100, required=True)
+#     user_id = UUIDField(required=True)
+#     songs = ListField(ReferenceField(Song), required=True)
+#     created_at = DateTimeField(default=datetime.datetime.now())

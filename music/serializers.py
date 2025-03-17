@@ -105,38 +105,38 @@ class AlbumSerializer(DocumentSerializer):
         return instance.save()
 
 
-class PlaylistSerializer(DocumentSerializer):
-    songs = SongSerializer(many=True)
+# class PlaylistSerializer(DocumentSerializer):
+#     songs = SongSerializer(many=True)
 
-    class Meta:
-        model = Playlist
-        fields = ('id', 'title', 'user_id', 'songs', 'created_at')
+#     class Meta:
+#         model = Playlist
+#         fields = ('id', 'title', 'user_id', 'songs', 'created_at')
 
-    def create(self, validated_data):
-        songs = validated_data.pop('songs')
-        playlist = Playlist(**validated_data)
+#     def create(self, validated_data):
+#         songs = validated_data.pop('songs')
+#         playlist = Playlist(**validated_data)
 
-        for song in songs:
-            try:
-                song = Song.objects.get(title=song['title'])
-            except Song.DoesNotExist:
-                song = SongSerializer().create(song)
-            playlist.songs.append(song)
+#         for song in songs:
+#             try:
+#                 song = Song.objects.get(title=song['title'])
+#             except Song.DoesNotExist:
+#                 song = SongSerializer().create(song)
+#             playlist.songs.append(song)
 
-        return playlist.save()
+#         return playlist.save()
 
-    def update(self, instance, validated_data):
-        instance.title = validated_data.get('title', instance.title)
-        instance.user_id = validated_data.get('user_id', instance.user_id)
-        instance.songs = []
+#     def update(self, instance, validated_data):
+#         instance.title = validated_data.get('title', instance.title)
+#         instance.user_id = validated_data.get('user_id', instance.user_id)
+#         instance.songs = []
 
-        songs = validated_data.pop('songs')
-        for song in songs:
-            try:
-                song = Song.objects.get(title=song['title'])
-            except Song.DoesNotExist:
-                song = SongSerializer().create(song)
-            instance.songs.append(song)
+#         songs = validated_data.pop('songs')
+#         for song in songs:
+#             try:
+#                 song = Song.objects.get(title=song['title'])
+#             except Song.DoesNotExist:
+#                 song = SongSerializer().create(song)
+#             instance.songs.append(song)
 
-        instance.save()
-        return instance
+#         instance.save()
+#         return instance
