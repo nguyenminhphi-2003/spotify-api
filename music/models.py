@@ -1,6 +1,5 @@
 import datetime
-from mongoengine import Document, StringField, IntField, ListField, LazyReferenceField, ReferenceField, DateTimeField, FloatField, UUIDField
-
+from mongoengine import Document, StringField, IntField, ListField, LazyReferenceField, ReferenceField, DateTimeField, FloatField
 
 class Artist(Document):
     name = StringField(max_length=100, required=True)
@@ -24,8 +23,8 @@ class Album(Document):
     release_date = DateTimeField(required=True)
 
 
-# class Playlist(Document):
-#     title = StringField(max_length=100, required=True)
-#     user_id = UUIDField(required=True)
-#     songs = ListField(ReferenceField(Song), required=True)
-#     created_at = DateTimeField(default=datetime.datetime.now())
+class Playlist(Document):
+    title = StringField(max_length=100, required=True)
+    user = StringField(required=True)
+    songs = ListField(ReferenceField(Song), required=True)
+    created_at = DateTimeField(default=datetime.datetime.now())
