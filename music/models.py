@@ -25,6 +25,6 @@ class Album(Document):
 
 class Playlist(Document):
     title = StringField(max_length=100, required=True)
-    user = StringField(required=True)
+    user = StringField()
     songs = ListField(ReferenceField(Song), required=True)
     created_at = DateTimeField(default=datetime.datetime.now())
