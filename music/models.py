@@ -10,17 +10,18 @@ class Artist(Document):
 
 class Song(Document):
     title = StringField(max_length=100, required=True)
-    artists = ListField(ReferenceField(Artist), required=True)
+    artists = ListField(ReferenceField(Artist))
     genre = StringField(max_length=100, required=True)
     file_location = StringField(required=True)
+    image_location = StringField(required=True)
     duration = FloatField(required=True)
 
 
 class Album(Document):
-    title = StringField(max_length=100)
+    title = StringField(max_length=100, required=True)
     artists = ListField(ReferenceField(Artist), required=True)
     songs = ListField(ReferenceField(Song), required=True)
-    release_date = DateTimeField()
+    release_date = DateTimeField(required=True)
 
 
 # class Playlist(Document):
