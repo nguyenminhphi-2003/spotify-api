@@ -5,8 +5,5 @@ venv/
 # Database
 db.sqlite3
 
-# Environments Variables
-.env
-
 # Cache
 */__pycache__/
