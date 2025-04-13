@@ -15,6 +15,7 @@ class Song(Document):
     file_location = StringField(required=True)
     image_location = StringField(required=True)
     duration = FloatField(required=True)
+    lyrics = StringField(max_length=100000, required=True)
 
 
 class Album(Document):

@@ -23,7 +23,7 @@ class SongSerializer(DocumentSerializer):
     class Meta:
         model = Song
         fields = ('id', 'title', 'artists', 'artist_ids', 'genre',
-                  'file_location', 'image_location', 'duration')
+                  'file_location', 'image_location', 'duration','lyrics')
 
     def create(self, validated_data):
         artist_ids = validated_data.pop('artist_ids', None)
@@ -50,6 +50,7 @@ class SongSerializer(DocumentSerializer):
         instance.image_location = validated_data.get(
             'image_location', instance.image_location)
         instance.duration = validated_data.get('duration', instance.duration)
+        instance.lyrics = validated_data.get('lyrics', instance.lyrics)
 
         if artist_ids is not None:
             instance.artists = []
