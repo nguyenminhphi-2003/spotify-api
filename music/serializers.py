@@ -12,22 +12,44 @@ class ArtistSerializer(DocumentSerializer):
 
 
 class SongSerializer(DocumentSerializer):
-    artists = ArtistSerializer(many=True, read_only=True)
+    artists = serializers.SerializerMethodField(read_only=True)
 
     artist_ids = serializers.ListField(
         child=serializers.CharField(),
         write_only=True,
-        required=True
+        required=False
     )
 
     class Meta:
         model = Song
         fields = ('id', 'title', 'artists', 'artist_ids', 'genre',
-                  'file_location', 'image_location', 'duration','lyrics')
+                  'file_location', 'image_location', 'duration', 'lyrics')
+
+    def get_artists(self, obj):
+        if not obj.artists or len(obj.artists) == 0:
+            return None
+        artist_list = []
+        for artist_ref in obj.artists:
+            try:
+                if isinstance(artist_ref, str):
+                    artist_id = artist_ref
+                else:
+                    artist_id = artist_ref.id
+
+                artist = Artist.objects.get(id=artist_id)
+                artist_list.append(ArtistSerializer(artist).data)
+            except Exception as e:
+                print(f"Error fetching artist: {e}")
+                continue
+
+        return artist_list if artist_list else None
 
     def create(self, validated_data):
-        artist_ids = validated_data.pop('artist_ids', None)
+        artist_ids = validated_data.pop('artist_ids', [])
         song = Song(**validated_data)
+
+        if not hasattr(song, 'artists') or song.artists is None:
+            song.artists = []
 
         if artist_ids:
             for artist_id in artist_ids:
@@ -67,7 +89,7 @@ class SongSerializer(DocumentSerializer):
 
 
 class AlbumSerializer(DocumentSerializer):
-    artists = ArtistSerializer(many=True, read_only=True)
+    artists = serializers.SerializerMethodField(read_only=True)
     songs = SongSerializer(many=True, read_only=True)
 
     artist_ids = serializers.ListField(
@@ -86,6 +108,25 @@ class AlbumSerializer(DocumentSerializer):
         model = Album
         fields = ('id', 'title', 'artists', 'artist_ids',
                   'songs', 'song_ids', 'release_date')
+
+    def get_artists(self, obj):
+        if not obj.artists or len(obj.artists) == 0:
+            return None
+        artist_list = []
+        for artist_ref in obj.artists:
+            try:
+                if isinstance(artist_ref, str):
+                    artist_id = artist_ref
+                else:
+                    artist_id = artist_ref.id
+
+                artist = Artist.objects.get(id=artist_id)
+                artist_list.append(ArtistSerializer(artist).data)
+            except Exception as e:
+                print(f"Error fetching artist: {e}")
+                continue
+
+        return artist_list if artist_list else None
 
     def create(self, validated_data):
         artist_ids = validated_data.pop('artist_ids', [])
@@ -145,7 +186,7 @@ class AlbumSerializer(DocumentSerializer):
 class PlaylistSerializer(DocumentSerializer):
     # For read operations
     songs = SongSerializer(many=True, read_only=True)
-    
+
     # For write operations
     song_ids = serializers.ListField(
         child=serializers.CharField(),
@@ -159,31 +200,33 @@ class PlaylistSerializer(DocumentSerializer):
 
     def create(self, validated_data):
         song_ids = validated_data.pop('song_ids', [])
-        
+
         playlist = Playlist(**validated_data)
-        
+
         for song_id in song_ids:
             try:
                 song = Song.objects.get(id=song_id)
                 playlist.songs.append(song)
             except Song.DoesNotExist:
-                raise serializers.ValidationError(f"Song with ID {song_id} not found")
-        
+                raise serializers.ValidationError(
+                    f"Song with ID {song_id} not found")
+
         return playlist.save()
 
     def update(self, instance, validated_data):
         instance.title = validated_data.get('title', instance.title)
-        
+
         if 'song_ids' in validated_data:
             song_ids = validated_data.pop('song_ids')
             instance.songs = []
-            
+
             for song_id in song_ids:
                 try:
                     song = Song.objects.get(id=song_id)
                     instance.songs.append(song)
                 except Song.DoesNotExist:
-                    raise serializers.ValidationError(f"Song with ID {song_id} not found")
-        
+                    raise serializers.ValidationError(
+                        f"Song with ID {song_id} not found")
+
         instance.save()
         return instance

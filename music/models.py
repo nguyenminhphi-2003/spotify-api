@@ -10,7 +10,7 @@ class Artist(Document):
 
 class Song(Document):
     title = StringField(max_length=100, required=True)
-    artists = ListField(ReferenceField(Artist))
+    artists = ListField(ReferenceField(Artist), required=False)
     genre = StringField(max_length=100, required=True)
     file_location = StringField(required=True)
     image_location = StringField(required=True)

@@ -27,6 +27,11 @@ class LoginView(ObtainAuthToken):
             'email': user.email
         })
 
+class UserListView(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAdminUser]
+
 
 class UserDetailView(generics.RetrieveUpdateAPIView):
     queryset = User.objects.all()
