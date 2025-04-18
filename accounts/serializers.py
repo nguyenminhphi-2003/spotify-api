@@ -4,9 +4,15 @@ from django.contrib.auth.password_validation import validate_password
 
 
 class UserSerializer(serializers.ModelSerializer):
+    is_staff = serializers.BooleanField(read_only=False)
+
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'first_name', 'last_name')
+        fields = ('id', 'username', 'email',
+                  'first_name', 'last_name', 'is_staff', 'is_superuser')
+        extra_kwargs = {
+            'is_staff': {'read_only': False}
+        }
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -16,10 +22,10 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username', 'password', 'password2',
-                  'email', 'first_name', 'last_name')
+        fields = ('username', 'password', 'password2', 'email',
+                  'first_name', 'last_name')
         extra_kwargs = {
-            'email': {'required': True},
+            'email': {'required': True, },
             'first_name': {'required': True},
             'last_name': {'required': True}
         }
@@ -28,9 +34,27 @@ class RegisterSerializer(serializers.ModelSerializer):
         if attrs['password'] != attrs['password2']:
             raise serializers.ValidationError(
                 {"password": "Password fields didn't match."})
+        email = attrs.get('email')
+        if User.objects.filter(email=email).exists():
+            raise serializers.ValidationError(
+                {"email": "A user with this email already exists."})
+
         return attrs
 
     def create(self, validated_data):
         validated_data.pop('password2')
-        user = User.objects.create_user(**validated_data)
+        password = validated_data.pop('password')
+        is_staff = validated_data.pop('is_staff', False)
+
+        user = User.objects.create_user(
+            username=validated_data['username'],
+            email=validated_data['email'],
+            first_name=validated_data['first_name'],
+            last_name=validated_data['last_name'],
+            password=password
+        )
+
+        user.is_staff = is_staff
+        user.save()
+
         return user

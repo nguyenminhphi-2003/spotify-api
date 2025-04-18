@@ -37,6 +37,14 @@ class UserDetailView(generics.RetrieveUpdateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = (permissions.IsAuthenticated,)
+    
+    
+class CurrentUserView(APIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    
+    def get(self, request):
+        serializer = UserSerializer(request.user)
+        return Response(serializer.data)
 
 
 class LogoutView(APIView):
