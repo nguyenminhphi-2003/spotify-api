@@ -14,8 +14,8 @@ class Song(Document):
     title = StringField(max_length=100, required=True)
     artists = ListField(ReferenceField(Artist), required=False)
     genre = StringField(max_length=100, required=True)
-    file_location = StringField(required=True)
-    image_location = StringField(required=True)
+    file_location = StringField()
+    image_location = StringField()
     duration = FloatField(required=True)
     lyrics = StringField(max_length=100000, required=True)
 

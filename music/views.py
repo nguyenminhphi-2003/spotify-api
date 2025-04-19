@@ -28,6 +28,12 @@ class SongViewSet(viewsets.ModelViewSet):
             permission_classes = [permissions.AllowAny]
         return [permission() for permission in permission_classes]
 
+    def perform_create(self, serializer):
+        serializer.save()
+
+    def perform_update(self, serializer):
+        serializer.save()
+
 
 class AlbumViewSet(viewsets.ModelViewSet):
     queryset = Album.objects.all()
