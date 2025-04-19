@@ -4,7 +4,7 @@ from music.models import *
 from music.serializers import *
 from accounts.permissions import IsOwnerOrReadOnly
 
-
+from rest_framework.parsers import MultiPartParser, FormParser
 class ArtistViewSet(viewsets.ModelViewSet):
     queryset = Artist.objects.all()
     serializer_class = ArtistSerializer
@@ -38,6 +38,7 @@ class SongViewSet(viewsets.ModelViewSet):
 class AlbumViewSet(viewsets.ModelViewSet):
     queryset = Album.objects.all()
     serializer_class = AlbumSerializer
+    parser_classes = (MultiPartParser, FormParser)
 
     def get_permissions(self):
         if self.action in ['create', 'update', 'partial_update', 'destroy']:
@@ -45,6 +46,12 @@ class AlbumViewSet(viewsets.ModelViewSet):
         else:
             permission_classes = [permissions.AllowAny]
         return [permission() for permission in permission_classes]
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+    def perform_update(self, serializer):
+        serializer.save()
 
 
 class PlaylistViewSet(viewsets.ModelViewSet):

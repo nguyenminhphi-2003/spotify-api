@@ -3,6 +3,8 @@ import string
 
 from mongoengine import Document, StringField, IntField, ListField, LazyReferenceField, ReferenceField, DateTimeField, FloatField
 
+
+
 class Artist(Document):
     name = StringField(max_length=100, required=True)
     bio = StringField(max_length=1000, required=True)
@@ -24,6 +26,8 @@ class Album(Document):
     title = StringField(max_length=100, required=True)
     artists = ListField(ReferenceField(Artist), required=True)
     songs = ListField(ReferenceField(Song), required=True)
+    Album_photo = StringField(max_length=1000)
+    Album_type = IntField(required=True)
     release_date = DateTimeField(required=True)
 
 
