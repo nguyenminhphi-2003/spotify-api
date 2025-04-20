@@ -24,10 +24,11 @@ router.register(r'artists', ArtistViewSet)
 router.register(r'songs', SongViewSet)
 router.register(r'albums', AlbumViewSet)
 router.register(r'playlists', PlaylistViewSet)
-router.register(r'notifications',NotificationsViewSet)
+router.register(r'notifications', NotificationsViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('api/auth/', include('accounts.urls')),
+    path('api/chat/', include('chat.urls')),
 ]

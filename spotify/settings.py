@@ -49,8 +49,19 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'music',
-    'accounts'
+    'accounts',
+    'channels', 
+    'chat',      
 ]
+
+# WebSocket configuration
+ASGI_APPLICATION = 'spotify.asgi.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    },
+}
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',

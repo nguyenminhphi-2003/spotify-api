@@ -1,0 +1,2 @@
+runserver-command: python manage.py runserver
+run-websocket-command: daphne -b 0.0.0.0 -p 5000 spotify.asgi:application
