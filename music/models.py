@@ -8,7 +8,7 @@ from mongoengine import Document, StringField, IntField, ListField, LazyReferenc
 class Artist(Document):
     name = StringField(max_length=100, required=True)
     bio = StringField(max_length=1000, required=True)
-    artist_photo = StringField(max_length=1000, required=True)
+    artist_photo = StringField(max_length=1000)
     debut_year = IntField(required=True)
 
 
