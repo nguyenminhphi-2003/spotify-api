@@ -1,5 +1,7 @@
 import boto3
 from botocore.exceptions import ClientError
+from rest_framework.fields import CharField
+from rest_framework_mongoengine.fields import FileField
 from rest_framework_mongoengine.serializers import DocumentSerializer, EmbeddedDocumentSerializer
 from rest_framework import serializers
 from music.models import *
@@ -8,10 +10,60 @@ from django.contrib.auth.models import User
 
 
 class ArtistSerializer(DocumentSerializer):
+
+    artist_photo_url = FileField(required=False, allow_null=True, write_only=True)
+
+    artist_photo = StringField(max_length=1000)
+
     class Meta:
         model = Artist
-        fields = '__all__'
+        fields = ['id', 'name', 'bio', 'debut_year', 'artist_photo_url', 'artist_photo']
 
+    def validate_artist_photo_url(self, value):
+        print("Validating artist_photo_url:", value)
+        if isinstance(value, list) and len(value) > 0:
+            value = value[0]
+            print("Extracted file from list:", value)
+        if value and not hasattr(value, 'file'):
+            raise serializers.ValidationError("Invalid file format")
+        return value
+
+    def create(self, validated_data):
+        print("Validated data:", validated_data)
+        artist_photo = validated_data.pop('artist_photo_url', None)  # Lấy từ artist_photo_url
+        if artist_photo and hasattr(artist_photo, 'file'):
+            s3_client = boto3.client('s3')
+            bucket_name = 'nct2k3spotify'
+            file_name = f"artists/{artist_photo.name}"
+            try:
+                s3_client.upload_fileobj(artist_photo.file, bucket_name, file_name)
+                file_url = f"https://{bucket_name}.s3.amazonaws.com/{file_name}"
+                validated_data['artist_photo'] = file_url  # Lưu vào artist_photo trong model
+            except ClientError as e:
+                raise serializers.ValidationError(f"Failed to upload file to S3: {str(e)}")
+
+        artist = Artist(**validated_data)
+        artist.save()
+        return artist
+
+    def update(self, instance, validated_data):
+        print("Validated data:", validated_data)
+        artist_photo = validated_data.pop('artist_photo_url', None)  # Lấy từ artist_photo_url
+        if artist_photo and hasattr(artist_photo, 'file'):
+            s3_client = boto3.client('s3')
+            bucket_name = 'nct2k3spotify'
+            file_name = f"artists/{artist_photo.name}"
+            try:
+                s3_client.upload_fileobj(artist_photo.file, bucket_name, file_name)
+                file_url = f"https://{bucket_name}.s3.amazonaws.com/{file_name}"
+                validated_data['artist_photo'] = file_url  # Lưu vào artist_photo trong model
+            except ClientError as e:
+                raise serializers.ValidationError(f"Failed to upload file to S3: {str(e)}")
+
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.save()
+        return instance
 
 class SongSerializer(DocumentSerializer):
     song_file = serializers.FileField(write_only=True, required=False)
@@ -24,9 +76,9 @@ class SongSerializer(DocumentSerializer):
         model = Song
         fields = '__all__'
         extra_kwargs = {
-            'artists': {'read_only': True},  # artists sẽ được tạo từ artist_ids
-            'file_location': {'read_only': True},  # file_location do backend tạo
-            'image_location': {'read_only': True},  # image_location do backend tạo
+            'artists': {'read_only': True},
+            'file_location': {'read_only': True},
+            'image_location': {'read_only': True},
         }
 
     def validate(self, data):
@@ -56,7 +108,7 @@ class SongSerializer(DocumentSerializer):
         # Upload file audio lên S3
         if song_file:
             s3_client = boto3.client('s3')
-            bucket_name = 'nct2k3spotify'  # Thay bằng tên bucket của bạn
+            bucket_name = 'nct2k3spotify'
             file_name = f"songs/{song_file.name}"
             try:
                 s3_client.upload_fileobj(song_file, bucket_name, file_name)
@@ -68,7 +120,7 @@ class SongSerializer(DocumentSerializer):
         # Upload file hình ảnh lên S3
         if image_file:
             s3_client = boto3.client('s3')
-            bucket_name = 'nct2k3spotify'  # Thay bằng tên bucket của bạn
+            bucket_name = 'nct2k3spotify'
             file_name = f"images/{image_file.name}"
             try:
                 s3_client.upload_fileobj(image_file, bucket_name, file_name)
@@ -94,7 +146,7 @@ class SongSerializer(DocumentSerializer):
         # Upload file audio lên S3 nếu có
         if song_file:
             s3_client = boto3.client('s3')
-            bucket_name = 'nct2k3spotify'  # Thay bằng tên bucket của bạn
+            bucket_name = 'nct2k3spotify'
             file_name = f"songs/{song_file.name}"
             try:
                 s3_client.upload_fileobj(song_file, bucket_name, file_name)
@@ -106,7 +158,7 @@ class SongSerializer(DocumentSerializer):
         # Upload file hình ảnh lên S3 nếu có
         if image_file:
             s3_client = boto3.client('s3')
-            bucket_name = 'nct2k3spotify'  # Thay bằng tên bucket của bạn
+            bucket_name = 'nct2k3spotify'
             file_name = f"images/{image_file.name}"
             try:
                 s3_client.upload_fileobj(image_file, bucket_name, file_name)
@@ -158,7 +210,7 @@ class AlbumSerializer(DocumentSerializer):
         fields = ('id', 'title', 'artists', 'artist_ids', 'songs', 'song_ids',
                   'Album_photo', 'Album_type', 'release_date', 'image_file')
         extra_kwargs = {
-            'Album_photo': {'read_only': True},  # Album_photo do backend tạo
+            'Album_photo': {'read_only': True},
         }
 
     def get_artists(self, obj):
@@ -213,7 +265,7 @@ class AlbumSerializer(DocumentSerializer):
         # Upload file ảnh lên S3
         if image_file:
             s3_client = boto3.client('s3')
-            bucket_name = 'nct2k3spotify'  # Thay bằng tên bucket của bạn
+            bucket_name = 'nct2k3spotify'
             file_name = f"album_images/{image_file.name}"
             try:
                 s3_client.upload_fileobj(image_file, bucket_name, file_name)
@@ -253,7 +305,7 @@ class AlbumSerializer(DocumentSerializer):
         # Upload file ảnh lên S3 nếu có
         if image_file:
             s3_client = boto3.client('s3')
-            bucket_name = 'nct2k3spotify'  # Thay bằng tên bucket của bạn
+            bucket_name = 'nct2k3spotify'
             file_name = f"album_images/{image_file.name}"
             try:
                 s3_client.upload_fileobj(image_file, bucket_name, file_name)

@@ -8,6 +8,7 @@ from rest_framework.parsers import MultiPartParser, FormParser
 class ArtistViewSet(viewsets.ModelViewSet):
     queryset = Artist.objects.all()
     serializer_class = ArtistSerializer
+    parser_classes = (MultiPartParser, FormParser)  # Bắt buộc để xử lý file
 
     def get_permissions(self):
         if self.action in ['create', 'update', 'partial_update', 'destroy']:
@@ -16,6 +17,15 @@ class ArtistViewSet(viewsets.ModelViewSet):
             permission_classes = [permissions.AllowAny]
         return [permission() for permission in permission_classes]
 
+    def perform_create(self, serializer):
+        print("Request data:", self.request.data)  # Log để debug
+        print("Serializer validated data:", serializer.validated_data)
+        serializer.save()
+
+    def perform_update(self, serializer):
+        print("Request data:", self.request.data)
+        print("Serializer validated data:", serializer.validated_data)
+        serializer.save()
 
 class SongViewSet(viewsets.ModelViewSet):
     queryset = Song.objects.all()
