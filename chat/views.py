@@ -104,3 +104,61 @@ class GetMyMessagesView(APIView):
                 continue
 
         return Response(result)
+
+
+class ChatCreateView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        sender_id = str(request.user.id)
+        receiver_id = request.data.get('receiver_id')
+
+        if not receiver_id:
+            return Response(
+                {"detail": "receiver_id is required"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        try:
+            receiver_id = str(receiver_id)  # Chuyển thành chuỗi
+            # Kiểm tra xem receiver_id có tồn tại
+            if not User.objects.filter(id=int(receiver_id)).exists():
+                return Response(
+                    {"detail": "Receiver does not exist"},
+                    status=status.HTTP_404_NOT_FOUND
+                )
+
+            chat = Chat.get_or_create_chat(sender_id, receiver_id)
+            serializer = ChatSerializer(chat)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        except Exception as e:
+            print(f"Error creating chat: {str(e)}")  # Ghi log để debug
+            return Response(
+                {"detail": f"Failed to create chat: {str(e)}"},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+class MessageCreateView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, chat_id):
+        try:
+            chat = Chat.objects.get(id=chat_id)
+            if chat.sender != str(request.user.id) and chat.receiver != str(request.user.id):
+                return Response(
+                    {"detail": "You do not have permission to send messages in this chat"},
+                    status=status.HTTP_403_FORBIDDEN
+                )
+            message = Message(
+                chat=chat,
+                sender=str(request.user.id),
+                content=request.data.get('content')
+            )
+            message.save()
+            serializer = MessageSerializer(message)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        except Chat.DoesNotExist:
+            return Response(
+                {"detail": "Chat not found"},
+                status=status.HTTP_404_NOT_FOUND
+            )
