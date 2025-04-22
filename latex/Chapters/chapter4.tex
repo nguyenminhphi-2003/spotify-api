@@ -1,0 +1,86 @@
+\chapter{Cài đặt và triển khai}
+\section{Môi trường phát triển}
+\begin{itemize}
+    \item \textbf{Hệ điều hành}: Windows 10.
+    \item \textbf{IDE}: Visual Studio Code.
+    \item \textbf{Ngôn ngữ lập trình}: 
+    \begin{itemize}
+        \item Python 3.10 (Backend).
+        \item TypeScript (Angular cho Frontend).
+    \end{itemize}
+    \item \textbf{Cơ sở dữ liệu}: MongoDB.
+    \item \textbf{Công cụ khác}:
+    \begin{itemize}
+        \item Docker: Để triển khai và quản lý container.
+        \item Postman: Kiểm thử API.
+        \item Node.js: Chạy môi trường cho Angular.
+    \end{itemize}
+\end{itemize}
+
+\section{Hướng dẫn cài đặt và chạy ứng dụng}
+\subsection{Cài đặt Backend (API)}
+\begin{enumerate}
+    \item Cài đặt Python 3.10 và MongoDB trên máy.
+    \item Clone repository từ GitHub:
+    \begin{itemize}
+        \item \texttt{git clone https://github.com/nguyenminhphi-2003/spotify-api}
+    \end{itemize}
+    \item Di chuyển vào thư mục backend:
+    \begin{itemize}
+        \item \texttt{cd spotify-api}
+    \end{itemize}
+    \item Tạo môi trường ảo:
+    \begin{itemize}
+        \item \texttt{python -m venv venv}
+    \end{itemize}
+    \item Kích hoạt môi trường ảo:
+    \begin{itemize}
+        \item Trên Windows: \texttt{venv\textbackslash Scripts\textbackslash activate}
+        \item Trên Linux/MacOS: \texttt{source venv/bin/activate}.
+    \end{itemize}
+    \item Cài đặt các thư viện cần thiết:
+    \begin{itemize}
+        \item \texttt{pip install -r requirements.txt}
+    \end{itemize}
+    \item Chạy server API:
+    \begin{itemize}
+        \item \texttt{python manage.py runserver}
+    \end{itemize}
+    \item Truy cập API tại địa chỉ: \texttt{http://127.0.0.1:8000/}.
+\end{enumerate}
+
+\subsection{Cài đặt Frontend (Angular)}
+\begin{enumerate}
+    \item Cài đặt Node.js và npm trên máy.
+    \item Clone repository từ GitHub:
+    \begin{itemize}
+        \item \texttt{git clone https://github.com/nct2k3/SpotifyFront}
+    \end{itemize}
+    \item Di chuyển vào thư mục frontend:
+    \begin{itemize}
+        \item \texttt{cd SpotifyFront}
+    \end{itemize}
+    \item Cài đặt các thư viện cần thiết:
+    \begin{itemize}
+        \item \texttt{npm install}
+    \end{itemize}
+    \item Chạy server phát triển:
+    \begin{itemize}
+        \item \texttt{ng serve}
+    \end{itemize}
+    \item Truy cập giao diện tại địa chỉ: \texttt{http://localhost:4200/}.
+\end{enumerate}
+
+\subsection{Triển khai bằng Docker}
+\begin{enumerate}
+    \item Cài đặt Docker và Docker Compose trên máy.
+    \item Di chuyển vào thư mục chứa file \texttt{docker-compose.yml}:
+    \begin{itemize}
+        \item \texttt{cd DeMo}
+    \end{itemize}
+    \item Chạy lệnh:
+    \begin{itemize}
+        \item \texttt{docker-compose up --build}
+    \end{itemize}
+    \item Truy cập ứng dụng tại địa chỉ: \texttt{http://localhost/}.
+\end{enumerate}
