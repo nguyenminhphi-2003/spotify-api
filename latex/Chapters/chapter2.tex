@@ -183,13 +183,157 @@ Hệ thống được thiết kế và phát triển với các tính năng chí
 \end{itemize}
 
 
-\subsection{Flowchart hoạt động}
-\begin{figure}[h]
+\section{Sơ đồ Flowchart}
+\subsection{Flowchart hoạt động chi tiết}
+
+\begin{figure}[H]
     \centering
-    % \includegraphics[width=0.8\textwidth]{imgs/system-flowchart.png}
-    \caption{Flowchart hoạt động của hệ thống}
+    \begin{tikzpicture}[node distance=2cm and 3cm, every node/.style={align=center}]
+        % Nodes
+        \node (user) [rectangle, draw, text width=4cm] {Người dùng (Client)};
+        
+        \node (frontend) [rectangle, draw, text width=5cm, below=of user] {
+            Frontend (Angular)\\
+            - Gửi yêu cầu HTTP\\
+            - Hiển thị dữ liệu\\
+            - Lưu token JWT\\
+            - Giao diện người dùng
+        };
+        
+        \node (backend) [rectangle, draw, text width=6cm, below=of frontend] {
+            Backend (Django REST Framework)\\
+            - Xác thực người dùng (JWT)\\
+            - CRUD dữ liệu (Playlist, User, Song, Artist, Album)\\
+            - Truy vấn MongoDB\\
+            - Trả về phản hồi JSON
+        };
+        
+        \node (db) [rectangle, draw, text width=5cm, below left=2.5cm and -2cm of backend] {
+            Cơ sở dữ liệu (MongoDB)\\
+            - Lưu trữ người dùng\\
+            - Playlist, bài hát, album, nghệ sĩ
+        };
+        
+        \node (s3) [rectangle, draw, text width=4.5cm, below right=2.5cm and -2cm of backend] {
+            Amazon S3 / URL nhạc\\
+            - Lưu trữ \& cung cấp link nhạc
+        };
+
+        \node (response) [rectangle, draw, text width=4.5cm, right=4cm of backend] {
+            \textbf{Phản hồi JSON}\\
+            - Dữ liệu trả về\\cho Frontend
+        };
+
+        % Arrows
+        \draw[->, thick] (user) -- (frontend) node[midway, right] {\small Thao tác người dùng};
+
+        \draw[->, thick] (frontend) -- (backend) node[midway, right] {\small Yêu cầu HTTP};
+
+        \draw[->, thick] (backend) -- (db) node[midway, left] {\small Truy vấn dữ liệu};
+        \draw[->, thick] (db) -- (backend) node[midway, right, yshift=4pt] {\small Kết quả truy vấn};
+
+        \draw[->, thick] (backend) -- (s3) node[midway, sloped, below] {\small Truy xuất URL nhạc};
+        \draw[->, thick] (s3) -- (backend) node[midway, sloped, above] {\small Trả về URL};
+
+        \draw[->, thick] (backend) -- (response) node[midway, above] {\small Phản hồi JSON};
+        \draw[->, thick] (response.west) -- ++(-1, 0) |- (frontend.east) node[pos=0.25, above] {\small Hiển thị dữ liệu};
+
+        \draw[dashed, ->, thick] (frontend.east) to[bend left=40] node[midway, above, sloped] {\small Phát nhạc từ URL} (s3.north east);
+
+    \end{tikzpicture}
+    \caption{Flowchart hoạt động chi tiết của hệ thống Spotify mô phỏng}
 \end{figure}
 
+
+
+Hệ thống hoạt động theo các bước chính như sau:
+
+\begin{itemize}
+    \item \textbf{Người dùng (Frontend - Angular)}:
+    \begin{itemize}
+        \item Người dùng truy cập giao diện web để thực hiện các thao tác như:
+        \begin{itemize}
+            \item Đăng ký, đăng nhập.
+            \item Tìm kiếm bài hát, album, nghệ sĩ.
+            \item Quản lý danh sách phát.
+            \item Phát nhạc trực tuyến.
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{Frontend gửi yêu cầu đến Backend (Django REST Framework)}:
+    \begin{itemize}
+        \item Giao diện frontend gửi các yêu cầu HTTP (REST API) đến backend thông qua các endpoint được định nghĩa.
+        \item Dữ liệu được gửi dưới dạng JSON.
+    \end{itemize}
+
+    \item \textbf{Backend xử lý yêu cầu}:
+    \begin{itemize}
+        \item Backend thực hiện các chức năng chính:
+        \begin{itemize}
+            \item \textbf{Xác thực người dùng}: Sử dụng JWT để xác thực và phân quyền.
+            \item \textbf{Quản lý dữ liệu}: Thực hiện CRUD (Create, Read, Update, Delete) trên các đối tượng như người dùng, bài hát, album, danh sách phát.
+            \item \textbf{Truy vấn cơ sở dữ liệu}: Sử dụng MongoDB để lưu trữ và truy vấn dữ liệu.
+            \item \textbf{Trả về phản hồi}: Trả về dữ liệu JSON cho frontend.
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{Cơ sở dữ liệu (MongoDB)}:
+    \begin{itemize}
+        \item Lưu trữ các thông tin chính:
+        \begin{itemize}
+            \item Người dùng (\textbf{User}).
+            \item Danh sách phát (\textbf{Playlist}).
+            \item Bài hát (\textbf{Song}).
+            \item Album (\textbf{Album}).
+            \item Nghệ sĩ (\textbf{Artist}).
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{Frontend hiển thị dữ liệu}:
+    \begin{itemize}
+        \item Frontend nhận dữ liệu JSON từ backend và hiển thị trên giao diện người dùng.
+        \item Các thao tác như phát nhạc, tìm kiếm, hoặc quản lý danh sách phát được cập nhật theo thời gian thực.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Chi tiết các luồng hoạt động chính}
+\begin{itemize}
+    \item \textbf{Luồng 1: Đăng ký/Đăng nhập}:
+    \begin{itemize}
+        \item Người dùng nhập thông tin đăng ký hoặc đăng nhập trên giao diện.
+        \item Frontend gửi yêu cầu đến endpoint \texttt{/api/register/} hoặc \texttt{/api/login/}.
+        \item Backend xử lý yêu cầu:
+        \begin{itemize}
+            \item Kiểm tra thông tin người dùng.
+            \item Trả về token xác thực (JWT) nếu thành công.
+        \end{itemize}
+        \item Frontend lưu token và chuyển hướng người dùng đến giao diện chính.
+    \end{itemize}
+
+    \item \textbf{Luồng 2: Quản lý danh sách phát}:
+    \begin{itemize}
+        \item Người dùng tạo, chỉnh sửa, hoặc xóa danh sách phát.
+        \item Frontend gửi yêu cầu đến các endpoint như \texttt{/api/playlists/}.
+        \item Backend thực hiện các thao tác CRUD trên cơ sở dữ liệu MongoDB.
+        \item Frontend cập nhật giao diện với danh sách phát mới.
+    \end{itemize}
+
+    \item \textbf{Luồng 3: Phát nhạc}:
+    \begin{itemize}
+        \item Người dùng chọn bài hát để phát.
+        \item Frontend gửi yêu cầu đến endpoint \texttt{/api/songs/\{id\}/}.
+        \item Backend trả về URL phát nhạc (được lưu trữ trên Amazon S3 hoặc tương tự).
+        \item Frontend sử dụng URL để phát nhạc trực tuyến.
+    \end{itemize}
+
+    \item \textbf{Luồng 4: Quản lý nội dung (Admin)}:
+    \begin{itemize}
+        \item Admin truy cập giao diện quản trị.
+        \item Thực hiện các thao tác quản lý bài hát, album, nghệ sĩ thông qua các endpoint như \texttt{/api/admin/songs/}, \texttt{/api/admin/albums/}.
+        \item Backend xử lý yêu cầu và cập nhật cơ sở dữ liệu.
+        \item Giao diện quản trị hiển thị dữ liệu mới.
+    \end{itemize}
+\end{itemize}
 \section{Thiết kế cơ sở dữ liệu}
 Cơ sở dữ liệu của dự án sử dụng MongoDB, một hệ quản trị cơ sở dữ liệu NoSQL, để lưu trữ và quản lý dữ liệu. Các bảng chính trong cơ sở dữ liệu bao gồm:
 
@@ -242,15 +386,44 @@ Cơ sở dữ liệu của dự án sử dụng MongoDB, một hệ quản trị
 
 \subsection{Mối quan hệ giữa các bảng}
 \begin{itemize}
-    \item \textbf{User} có thể sở hữu nhiều \textbf{Playlist}.
-    \item \textbf{Playlist} chứa nhiều \textbf{Song}.
-    \item \textbf{Album} chứa nhiều \textbf{Song} và liên kết với nhiều \textbf{Artist}.
-    \item \textbf{Song} có thể liên kết với nhiều \textbf{Artist}.
+    \item \textbf{User}:
+    \begin{itemize}
+        \item Mỗi người dùng (\textbf{User}) có thể sở hữu nhiều \textbf{Playlist}.
+      
+       
+    \end{itemize}
+
+    \item \textbf{Playlist}:
+    \begin{itemize}
+        \item Mỗi \textbf{Playlist} thuộc về một \textbf{User}.
+        \item Một \textbf{Playlist} có thể chứa nhiều \textbf{Song}.
+       
+    \end{itemize}
+
+    \item \textbf{Song}:
+    \begin{itemize}
+        \item Một \textbf{Song} có thể liên kết với nhiều \textbf{Artist}.
+        \item Một \textbf{Song} có thể thuộc về nhiều \textbf{Playlist}.
+       
+    \end{itemize}
+
+    \item \textbf{Album}:
+    \begin{itemize}
+        \item Một \textbf{Album} chứa nhiều \textbf{Song}.
+        \item Một \textbf{Album} có thể liên kết với nhiều \textbf{Artist}.
+       
+    \end{itemize}
+
+    \item \textbf{Artist}:
+    \begin{itemize}
+        \item Một \textbf{Artist} có thể liên kết với nhiều \textbf{Song} và nhiều \textbf{Album}.
+      
+    \end{itemize}
 \end{itemize}
 
 \subsection{Sơ đồ ERD}
 \begin{figure}[h]
     \centering
-    % \includegraphics[width=0.8\textwidth]{imgs/erd.png}
+    \includegraphics[width=0.8\textwidth]{imgs/erd.jpg}
     \caption{Sơ đồ ERD của cơ sở dữ liệu}
 \end{figure}
