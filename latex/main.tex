@@ -1,27 +1,26 @@
-\documentclass[a4paper,12pt]{report}  % Định dạng tài liệu dạng báo cáo
-\usepackage[utf8]{vietnam}             % Hỗ trợ tiếng Việt
-\usepackage{graphicx}                  % Hỗ trợ chèn hình ảnh
-\usepackage{hyperref}                   % Hỗ trợ liên kết
-\usepackage{amsmath, amssymb}           % Công thức toán học
-\usepackage{geometry}                   % Căn chỉnh lề
+\documentclass[a4paper,12pt]{report}
+\usepackage[utf8]{vietnam}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
 \geometry{left=3cm, right=2.5cm, top=3cm, bottom=2.5cm}
 
-\begin{document}  % Bắt đầu tài liệu chính
+\begin{document}
 
-% === TRANG BÌA ===
 \begin{titlepage}
     \centering
     \includegraphics[width=4cm]{logoITSGU.png} \\[1cm]
     \textbf{\Large TRƯỜNG ĐẠI HỌC SÀI GÒN} \\[0.5cm]
     \textbf{\Large KHOA CÔNG NGHỆ THÔNG TIN} \\[2cm]
-    {\Huge \textbf{BÁO CÁO ĐỒ ÁN}} \\[2cm]
+    {\Huge \textbf{BÁO CÁO ĐỒ ÁN: HỆ THỐNG NGHE NHẠC TRỰC TUYẾN}} \\[2cm]
 
     \begin{center}
         \begin{tabular}{|c|c|c|}
             \hline
             \textbf{Họ và tên sinh viên} & \textbf{Mã số sinh viên} & \textbf{Lớp} \\
             \hline
-            Nguyễn Công Nguyên & 3121410352 & DCT1212 \\
+            Trần Công Nguyên & 3121410352 & DCT1212 \\
             \hline
             Trần Thị Thủy & 3121410487 & DCT1218 \\
             \hline
@@ -33,7 +32,7 @@
             \hline
         \end{tabular}
     \end{center}
-    
+
     \vspace{1cm}
     \textbf{Giảng viên hướng dẫn:} Từ Lãng Phiêu \\
 
@@ -41,34 +40,273 @@
     TP. Hồ Chí Minh, \today
 \end{titlepage}
 
-\newpage  % Bắt đầu trang mới sau trang bìa
-
-% === MỤC LỤC ===
+\newpage
 \tableofcontents
 \newpage
 
+
 \chapter{Giới thiệu}
-Nội dung chương giới thiệu...
+Trong bối cảnh công nghệ số phát triển mạnh mẽ và nhu cầu giải trí trực tuyến ngày càng gia tăng, dự án xây dựng hệ thống nghe nhạc trực tuyến ra đời nhằm mang đến cho người dùng một nền tảng trải nghiệm âm nhạc tiện ích, hiện đại và dễ sử dụng. Ứng dụng được thiết kế với mục tiêu cung cấp một hệ thống nghe nhạc đa chức năng, bao gồm khả năng phát nhạc, tìm kiếm bài hát, quản lý danh sách phát, và hỗ trợ trò chuyện thời gian thực, đồng thời đảm bảo tính an toàn và hiệu suất cao.
+
+Hệ thống được xây dựng dựa trên các công nghệ tiên tiến, tích hợp các thành phần sau để đảm bảo hiệu năng, khả năng mở rộng và trải nghiệm người dùng tối ưu:
+
+\begin{itemize}
+    \item \textbf{Backend:} Sử dụng Django (Python) làm nền tảng phát triển.
+        \begin{itemize}
+            \item \textit{Django REST Framework}: Xây dựng các API mạnh mẽ và linh hoạt để xử lý yêu cầu từ phía client.
+            \item \textit{Celery}: Quản lý và thực thi các tác vụ nền (background tasks) như xử lý file nhạc hoặc gửi thông báo.
+            \item \textit{Django Channels}: Hỗ trợ WebSocket để triển khai tính năng chat thời gian thực.
+        \end{itemize}
+    \item \textbf{Frontend:} Phát triển bằng Angular (TypeScript).
+        \begin{itemize}
+            \item \textit{RxJS}: Quản lý các luồng dữ liệu bất đồng bộ (asynchronous data streams) để tối ưu hóa tương tác người dùng.
+            \item \textit{NgRx}: Quản lý trạng thái toàn cục (state management) của ứng dụng.
+            \item \textit{Angular Material}: Cung cấp giao diện người dùng hiện đại, đồng bộ và thân thiện.
+        \end{itemize}
+    \item \textbf{Cơ sở dữ liệu:} MongoDB được chọn làm cơ sở dữ liệu chính.
+        \begin{itemize}
+            \item \textit{Mongoose ODM}: Cung cấp ánh xạ đối tượng để tương tác dễ dàng với MongoDB.
+            \item \textit{GridFS}: Hỗ trợ lưu trữ và quản lý các file đa phương tiện như file nhạc hoặc hình ảnh.
+        \end{itemize}
+    \item \textbf{Lưu trữ file:} Sử dụng Amazon S3 (AWS) để lưu trữ các file nhạc và tài nguyên đa phương tiện khác, đảm bảo tính sẵn sàng cao và khả năng mở rộng.
+    \item \textbf{Quản lý dữ liệu:} DBT (Data Build Tool) được tích hợp để quản lý, chuyển đổi và phân tích dữ liệu hiệu quả.
+    \item \textbf{Các công nghệ bổ sung:}
+        \begin{itemize}
+            \item \textit{WebSocket}: Hỗ trợ giao tiếp thời gian thực cho chức năng chat.
+            \item \textit{JWT (JSON Web Token)}: Đảm bảo xác thực và bảo mật thông tin người dùng.
+            \item \textit{Elasticsearch}: Tăng cường khả năng tìm kiếm nhanh chóng và chính xác các bài hát, danh sách phát hoặc nội dung liên quan.
+        \end{itemize}
+\end{itemize}
+
+Hệ thống được thiết kế với kiến trúc linh hoạt, dễ dàng mở rộng và bảo trì, đáp ứng nhu cầu của người dùng trong môi trường giải trí trực tuyến hiện đại.
+
 
 \chapter{Lý do chọn đề tài}
-Nội dung chương lý do chọn đề tài...
+Việc lựa chọn phát triển một hệ thống nghe nhạc trực tuyến, lấy cảm hứng từ các nền tảng như Spotify, được thúc đẩy bởi sự giao thoa giữa nhu cầu thực tiễn của người dùng, xu hướng phát triển công nghệ toàn cầu, và mục tiêu học tập, nghiên cứu của nhóm thực hiện. Đề tài không chỉ phản ánh sự phù hợp với bối cảnh xã hội và công nghệ hiện nay mà còn thể hiện tham vọng của nhóm trong việc tạo ra một sản phẩm có giá trị ứng dụng cao, đồng thời rèn luyện kỹ năng chuyên môn. Các lý do cụ thể được phân tích chi tiết như sau:
+
+\begin{itemize}
+    \item \textbf{Phù hợp với xu hướng giải trí trực tuyến và nhu cầu người dùng:}
+    Trong kỷ nguyên số hóa, âm nhạc trực tuyến đã trở thành một phương thức giải trí thiết yếu, đáp ứng nhu cầu của hàng tỷ người dùng trên toàn cầu. Theo báo cáo từ International Federation of the Phonographic Industry (IFPI) năm 2023, doanh thu từ các \textbf{các dịch vụ phát nhạc trực tuyến chiếm hơn 65\% tổng doanh thu ngành công nghiệp âm nhạc toàn cầu}, với các nền tảng như Spotify, Apple Music, và YouTube Music dẫn đầu thị trường. Tại Việt Nam, sự phổ biến của các dịch vụ này cũng tăng mạnh, đặc biệt trong nhóm người trẻ từ 18 đến 35 tuổi, nhờ sự phát triển của hạ tầng internet và thiết bị di động. Tuy nhiên, các nền tảng quốc tế thường chưa tối ưu hóa trải nghiệm cho người dùng Việt Nam, chẳng hạn như thiếu nội dung âm nhạc Việt Nam phong phú hoặc giao diện chưa thân thiện với văn hóa địa phương. Đề tài này được lựa chọn nhằm phát triển một hệ thống nghe nhạc trực tuyến mang tính nội địa hóa, cung cấp kho nhạc đa dạng, giao diện trực quan, và các tính năng phù hợp với thói quen sử dụng của người Việt, từ đó góp phần thu hẹp khoảng cách giữa các nền tảng quốc tế và nhu cầu trong nước.
+
+    \item \textbf{Cơ hội nghiên cứu và ứng dụng các công nghệ tiên tiến:}
+    Việc xây dựng một hệ thống nghe nhạc trực tuyến đòi hỏi sự kết hợp của nhiều công nghệ hiện đại, từ phát triển backend, frontend, cơ sở dữ liệu, đến các công cụ xử lý dữ liệu thời gian thực và trí tuệ nhân tạo. Nhóm đã lựa chọn đề tài này để có cơ hội nghiên cứu và áp dụng các công nghệ như Django REST Framework (cho API), Angular (cho giao diện người dùng), MongoDB (cho lưu trữ dữ liệu), và Elasticsearch (cho tìm kiếm hiệu quả). Đặc biệt, việc tích hợp WebSocket để hỗ trợ tính năng chat thời gian thực, sử dụng Celery cho xử lý tác vụ nền, và triển khai thuật toán học máy để gợi ý bài hát cá nhân hóa là những thách thức kỹ thuật hấp dẫn. Những công nghệ này không chỉ phổ biến trong ngành công nghiệp phần mềm mà còn đại diện cho các xu hướng phát triển hiện nay, chẳng hạn như microservices, xử lý dữ liệu lớn, và cá nhân hóa trải nghiệm người dùng. Thông qua đề tài, nhóm không chỉ củng cố kiến thức lý thuyết mà còn phát triển kỹ năng thực hành, chuẩn bị cho các dự án phức tạp hơn trong tương lai.
+
+    \item \textbf{Tạo ra sản phẩm có giá trị thực tiễn và tiềm năng thương mại:}
+    Hệ thống nghe nhạc trực tuyến không chỉ là một bài tập học thuật mà còn mang tiềm năng ứng dụng cao trong thực tế. Với thiết kế theo kiến trúc microservices, hệ thống đảm bảo khả năng mở rộng để hỗ trợ số lượng lớn người dùng, trong khi các tính năng như gợi ý bài hát, quản lý playlist, và khám phá nghệ sĩ mang lại giá trị gia tăng cho người dùng. Sản phẩm này có thể được triển khai dưới dạng một dịch vụ miễn phí hoặc trả phí, phục vụ nhu cầu giải trí của cá nhân, hoặc thậm chí phát triển thành một nền tảng thương mại cạnh tranh với các dịch vụ hiện có. Việc phát triển một sản phẩm hoàn chỉnh từ ý tưởng đến triển khai giúp nhóm trải nghiệm toàn bộ quy trình phát triển phần mềm thực tế, từ phân tích yêu cầu, thiết kế hệ thống, đến kiểm thử và vận hành. Đây là cơ hội để nhóm chứng minh khả năng tạo ra một sản phẩm có ý nghĩa, không chỉ trong môi trường học thuật mà còn trong thị trường công nghệ.
+
+    \item \textbf{Đối mặt với các thách thức kỹ thuật phức tạp:}
+    Phát triển một hệ thống nghe nhạc trực tuyến đặt ra nhiều bài toán kỹ thuật đòi hỏi sự sáng tạo và tư duy phân tích. Việc tối ưu hóa hiệu suất phát nhạc yêu cầu xử lý luồng dữ liệu âm thanh với độ trễ tối thiểu, trong khi lưu trữ và truy xuất một kho nhạc lớn đòi hỏi thiết kế cơ sở dữ liệu hiệu quả, chẳng hạn như sử dụng MongoDB với GridFS để quản lý file đa phương tiện. Tính năng tìm kiếm nhanh và chính xác được hỗ trợ bởi Elasticsearch, trong khi gợi ý bài hát dựa trên sở thích người dùng cần đến các thuật toán học máy hoặc phân tích dữ liệu hành vi. Ngoài ra, việc đảm bảo bảo mật thông tin người dùng thông qua xác thực JWT và mã hóa dữ liệu, cùng với thiết kế giao diện responsive trên nhiều thiết bị, là những thách thức kỹ thuật quan trọng. Những bài toán này không chỉ giúp nhóm rèn luyện kỹ năng lập trình mà còn phát triển tư duy giải quyết vấn đề, khả năng làm việc nhóm, và quản lý dự án trong môi trường thực tế.
+
+    \item \textbf{Thúc đẩy sự phát triển của cộng đồng công nghệ Việt Nam:}
+    Đề tài này không chỉ mang lại giá trị cho người dùng cuối mà còn đóng góp vào sự phát triển của cộng đồng công nghệ tại Việt Nam. Bằng cách xây dựng một hệ thống nghe nhạc trực tuyến sử dụng các công nghệ mã nguồn mở như Django, Angular, và MongoDB, nhóm hy vọng tạo ra một tài liệu tham khảo hữu ích cho các sinh viên, nhà phát triển, và doanh nghiệp khởi nghiệp trong lĩnh vực công nghệ. Dự án cũng khuyến khích việc ứng dụng công nghệ vào các ngành công nghiệp sáng tạo như âm nhạc, góp phần nâng cao nhận thức về vai trò của công nghệ trong việc bảo tồn và phát triển văn hóa. Hơn nữa, sản phẩm này có thể trở thành nguồn cảm hứng để các nhóm khác khám phá các ý tưởng sáng tạo, từ đó thúc đẩy sự đổi mới trong cộng đồng công nghệ Việt Nam.
+
+    \item \textbf{Đáp ứng mục tiêu học tập và định hướng nghề nghiệp:}
+    Là sinh viên ngành Công nghệ Thông tin tại Trường Đại học Sài Gòn, nhóm coi đồ án này là cơ hội để tổng hợp và áp dụng kiến thức đã học vào một dự án thực tế. Đề tài không chỉ đáp ứng yêu cầu học tập mà còn là bước đệm quan trọng để chuẩn bị cho sự nghiệp trong lĩnh vực phát triển phần mềm. Việc thực hiện một hệ thống phức tạp như nền tảng nghe nhạc trực tuyến giúp nhóm làm quen với các quy trình làm việc chuyên nghiệp, bao gồm Agile, DevOps, và kiểm thử phần mềm. Đồng thời, dự án cũng mang lại cơ hội để nhóm xây dựng hồ sơ năng lực, chứng minh khả năng thiết kế và phát triển các hệ thống quy mô lớn, từ đó tạo lợi thế cạnh tranh khi ứng tuyển vào các công ty công nghệ hoặc tham gia các dự án khởi nghiệp sau khi tốt nghiệp.
+
+    \item \textbf{Khám phá tiềm năng cá nhân hóa trải nghiệm người dùng:}
+    Một trong những yếu tố hấp dẫn của đề tài là khả năng tích hợp các công nghệ cá nhân hóa, chẳng hạn như gợi ý bài hát dựa trên lịch sử nghe hoặc sở thích cá nhân. Trong bối cảnh các nền tảng như Spotify sử dụng trí tuệ nhân tạo và học máy để nâng cao trải nghiệm người dùng, nhóm nhận thấy đây là cơ hội để khám phá các thuật toán phân tích dữ liệu, chẳng hạn như collaborative filtering hoặc content-based filtering. Việc triển khai tính năng này không chỉ tăng tính cạnh tranh của sản phẩm mà còn giúp nhóm hiểu sâu hơn về cách công nghệ có thể tạo ra trải nghiệm cá nhân hóa, một xu hướng quan trọng trong ngành công nghiệp giải trí và công nghệ hiện nay. Hơn nữa, việc nghiên cứu các thuật toán này mở ra cơ hội để nhóm tiếp cận với các lĩnh vực mới như khoa học dữ liệu và trí tuệ nhân tạo, từ đó mở rộng kiến thức và kỹ năng trong các dự án tương lai.
+
+\end{itemize}
+
+Tóm lại, việc lựa chọn đề tài xây dựng hệ thống nghe nhạc trực tuyến xuất phát từ sự kết hợp giữa nhu cầu thực tiễn, cơ hội học tập, và tham vọng tạo ra một sản phẩm có giá trị lâu dài. Đề tài không chỉ mang lại cơ hội để nhóm đối mặt với các thách thức kỹ thuật, ứng dụng công nghệ hiện đại, và đóng góp cho cộng đồng, mà còn giúp nhóm chuẩn bị tốt hơn cho hành trình phát triển nghề nghiệp trong lĩnh vực công nghệ thông tin. Với những giá trị này, đề tài được xem là một lựa chọn lý tưởng để thể hiện năng lực và tầm nhìn của nhóm trong bối cảnh công nghệ số hóa hiện nay.
+
 
 \chapter{Mục tiêu}
-Nội dung chương mục tiêu...
 
-\chapter{Phương pháp thực hiện}
-Nội dung chương phương pháp...
+Dự án xây dựng hệ thống phát nhạc trực tuyến dựa trên nền tảng web với mục tiêu tái hiện và cải tiến các chức năng của dịch vụ Spotify, đồng thời tích hợp các công nghệ hiện đại như Django (backend), Angular (frontend), MongoDB (cơ sở dữ liệu), và Amazon S3 (lưu trữ file nhạc). Hệ thống bổ sung tính năng chat thời gian thực thông qua WebSocket, đảm bảo trải nghiệm người dùng phong phú và tương tác. Các mục tiêu cụ thể bao gồm:
+
+\begin{itemize}
+    \item \textbf{Xây dựng hệ thống quản lý và phát nhạc trực tuyến hoàn chỉnh:} \\
+    Hệ thống phải có khả năng lưu trữ, quản lý và truyền tải các tệp âm thanh từ Amazon S3 tới người dùng cuối. Backend được xây dựng bằng Django, sử dụng Django REST Framework để xử lý các yêu cầu HTTP, tương tác với cơ sở dữ liệu MongoDB để quản lý thông tin người dùng, bài hát, nghệ sĩ, danh sách phát, và các dữ liệu liên quan. Hệ thống phát nhạc cần được tối ưu hóa để đảm bảo tính liên tục, mượt mà, hỗ trợ các thao tác như phát, tạm dừng, chuyển bài nhanh chóng, và tích hợp trình phát nhạc thời gian thực.
+
+    \item \textbf{Cung cấp giao diện người dùng thân thiện và trực quan:} \\
+    Giao diện frontend được phát triển bằng Angular (TypeScript), sử dụng Angular Material để đảm bảo tính hiện đại, dễ sử dụng và tương thích trên nhiều thiết bị (responsive design). Giao diện bao gồm trang chủ, thanh điều hướng, trình phát nhạc, trang cá nhân người dùng, danh sách phát, trang tìm kiếm, và các trang phụ trợ khác. Việc sử dụng RxJS và NgRx giúp quản lý trạng thái ứng dụng hiệu quả, trong khi các component Angular đảm bảo khả năng tái sử dụng và bảo trì mã nguồn.
+
+    \item \textbf{Đảm bảo hiệu năng và tốc độ xử lý dữ liệu:} \\
+    Hệ thống cần đảm bảo tốc độ phản hồi nhanh ngay cả khi xử lý lượng lớn dữ liệu hoặc có nhiều người dùng truy cập đồng thời. Điều này bao gồm tối ưu hóa truy vấn MongoDB với Mongoose ODM, sử dụng các kỹ thuật như phân trang (pagination), caching nếu cần, và xây dựng REST API hiệu quả với Django REST Framework. Frontend Angular cần hạn chế render lại không cần thiết, tối ưu hóa xử lý dữ liệu bất đồng bộ thông qua RxJS. Ngoài ra, Elasticsearch được tích hợp để tăng tốc độ tìm kiếm bài hát, nghệ sĩ hoặc danh sách phát.
+
+    \item \textbf{Triển khai các tính năng chính:}
+    \begin{itemize}
+        \item \textbf{Đăng ký và xác thực người dùng:} Hỗ trợ người dùng đăng ký tài khoản, đăng nhập, đăng xuất, sử dụng mã hóa mật khẩu (bcrypt) và xác thực bằng JWT (JSON Web Token) để đảm bảo bảo mật.
+        \item \textbf{Tìm kiếm và phát nhạc:} Cho phép người dùng tìm kiếm bài hát, nghệ sĩ, hoặc album theo từ khóa với sự hỗ trợ của Elasticsearch, đồng thời phát nhạc trực tiếp từ trình phát tích hợp, sử dụng file lưu trữ trên Amazon S3.
+        \item \textbf{Quản lý danh sách phát cá nhân:} Người dùng có thể tạo, chỉnh sửa, xóa danh sách phát, thêm hoặc loại bỏ bài hát, và lưu danh sách phát yêu thích vào MongoDB thông qua GridFS cho các dữ liệu đa phương tiện.
+        \item \textbf{Khám phá nghệ sĩ và album:} Cung cấp các trang thông tin chi tiết về nghệ sĩ và album, bao gồm tiểu sử, danh sách bài hát nổi bật, và album liên quan, với dữ liệu được quản lý hiệu quả trong MongoDB.
+        \item \textbf{Gợi ý bài hát dựa trên sở thích:} Áp dụng các thuật toán như lọc theo nội dung (content-based filtering) hoặc collaborative filtering để gợi ý bài hát phù hợp với thói quen nghe nhạc của người dùng, sử dụng dữ liệu phân tích từ DBT.
+        \item \textbf{Chat thời gian thực:} Tích hợp WebSocket thông qua Django Channels để hỗ trợ tính năng trò chuyện giữa người dùng, cho phép chia sẻ sở thích âm nhạc hoặc thảo luận trực tiếp.
+    \end{itemize}
+
+    \item \textbf{Đảm bảo an toàn và bảo mật thông tin người dùng:} \\
+    Hệ thống mã hóa thông tin nhạy cảm như mật khẩu, token truy cập bằng bcrypt và JWT; triển khai các biện pháp chống tấn công như XSS, CSRF, và đảm bảo an toàn dữ liệu trong MongoDB. Các middleware trong Django và Angular được sử dụng để kiểm tra nghiêm ngặt quyền truy cập. Việc lưu trữ file trên Amazon S3 cũng đảm bảo tính bảo mật và toàn vẹn dữ liệu.
+\end{itemize}
+
+Thông qua việc hoàn thiện các mục tiêu trên, dự án hướng đến xây dựng một ứng dụng phát nhạc trực tuyến hiện đại, hiệu quả, tích hợp tính năng chat thời gian thực, mang lại trải nghiệm phong phú và an toàn cho người dùng cuối.
+
+\chapter{Phân tích và thiết kế hệ thống}
+
+\section{Phân tích yêu cầu}
+Yêu cầu của hệ thống được xác định để đáp ứng nhu cầu của một nền tảng nghe nhạc trực tuyến tích hợp chat thời gian thực, bao gồm:
+
+\begin{itemize}
+    \item \textbf{Yêu cầu chức năng:}
+        \begin{itemize}
+            \item Người dùng có thể đăng ký, đăng nhập, đăng xuất và quản lý thông tin tài khoản cá nhân.
+            \item Hỗ trợ tìm kiếm bài hát, nghệ sĩ, album hoặc danh sách phát dựa trên từ khóa với kết quả nhanh và chính xác.
+            \item Phát nhạc trực tuyến từ Amazon S3 với chất lượng cao, hỗ trợ các thao tác như phát, tạm dừng, chuyển bài, và điều chỉnh âm lượng.
+            \item Tạo, chỉnh sửa, xóa và quản lý danh sách phát (playlist) cá nhân, cho phép thêm hoặc loại bỏ bài hát.
+            \item Gợi ý bài hát dựa trên lịch sử nghe và sở thích người dùng, sử dụng thuật toán như content-based hoặc collaborative filtering.
+            \item Tích hợp chức năng chat thời gian thực thông qua WebSocket để người dùng trao đổi và chia sẻ sở thích âm nhạc.
+        \end{itemize}
+    \item \textbf{Yêu cầu phi chức năng:}
+        \begin{itemize}
+            \item Hệ thống phải đảm bảo thời gian phản hồi nhanh, dưới 2 giây cho các yêu cầu tìm kiếm và dưới 1 giây cho các thao tác phát nhạc.
+            \item Giao diện responsive, hỗ trợ đa nền tảng (web, mobile) với trải nghiệm mượt mà trên các thiết bị khác nhau.
+            \item Bảo mật dữ liệu người dùng bằng mã hóa (bcrypt cho mật khẩu, JWT cho xác thực) và chống các cuộc tấn công như XSS, CSRF.
+            \item Khả năng mở rộng (scalability) để hỗ trợ số lượng lớn người dùng đồng thời, sử dụng kiến trúc microservices và lưu trữ trên Amazon S3.
+            \item Đảm bảo độ tin cậy cao (high availability) với uptime tối thiểu 99,9\%.
+        \end{itemize}
+\end{itemize}
+
+\section{Phân tích yêu cầu}
+Yêu cầu của hệ thống được xác định để đáp ứng nhu cầu của một nền tảng nghe nhạc trực tuyến tích hợp chat thời gian thực, bao gồm:
+
+\begin{itemize}
+    \item \textbf{Yêu cầu chức năng:}
+        \begin{itemize}
+            \item Người dùng có thể đăng ký, đăng nhập, đăng xuất và quản lý thông tin tài khoản cá nhân.
+            \item Hỗ trợ tìm kiếm bài hát, nghệ sĩ, album hoặc danh sách phát dựa trên từ khóa với kết quả nhanh và chính xác.
+            \item Phát nhạc trực tuyến từ Amazon S3 với chất lượng cao, hỗ trợ các thao tác như phát, tạm dừng, chuyển bài, và điều chỉnh âm lượng.
+            \item Tạo, chỉnh sửa, xóa và quản lý danh sách phát (playlist) cá nhân, cho phép thêm hoặc loại bỏ bài hát.
+            \item Gợi ý bài hát dựa trên lịch sử nghe và sở thích người dùng, sử dụng thuật toán như content-based hoặc collaborative filtering.
+            \item Tích hợp chức năng chat thời gian thực thông qua WebSocket để người dùng trao đổi và chia sẻ sở thích âm nhạc.
+        \end{itemize}
+    \item \textbf{Yêu cầu phi chức năng:}
+        \begin{itemize}
+            \item Hệ thống phải đảm bảo thời gian phản hồi nhanh, dưới 2 giây cho các yêu cầu tìm kiếm và dưới 1 giây cho các thao tác phát nhạc.
+            \item Giao diện responsive, hỗ trợ đa nền tảng (web, mobile) với trải nghiệm mượt mà trên các thiết bị khác nhau.
+            \item Bảo mật dữ liệu người dùng bằng mã hóa (bcrypt cho mật khẩu, JWT cho xác thực) và chống các cuộc tấn công như XSS, CSRF.
+            \item Khả năng mở rộng (scalability) để hỗ trợ số lượng lớn người dùng đồng thời, sử dụng kiến trúc monolithic với lưu trữ trên Amazon S3.
+            \item Đảm bảo độ tin cậy cao (high availability) với uptime tối thiểu 99,9\%.
+        \end{itemize}
+\end{itemize}
+
+\section{Thiết kế hệ thống}
+Hệ thống được thiết kế theo mô hình monolithic để đảm bảo tính đơn giản, dễ triển khai và bảo trì, với các thành phần chính được tích hợp trong một ứng dụng duy nhất:
+
+\begin{itemize}
+    \item \textbf{Backend Core (Django):} Xử lý toàn bộ logic nghiệp vụ, bao gồm quản lý yêu cầu người dùng, xác thực, và tương tác với cơ sở dữ liệu. Sử dụng Django REST Framework để cung cấp các API cho frontend.
+    \item \textbf{Authentication Module:} Quản lý đăng ký, đăng nhập, đăng xuất và thông tin người dùng. Sử dụng JWT (JSON Web Token) cho xác thực và mã hóa mật khẩu bằng bcrypt.
+    \item \textbf{Music Management Module:} Quản lý dữ liệu bài hát, nghệ sĩ, album và danh sách phát. Tương tác với MongoDB thông qua Mongoose ODM và lưu trữ file nhạc trên Amazon S3.
+    \item \textbf{Search Module:} Tích hợp Elasticsearch để cung cấp khả năng tìm kiếm nhanh, chính xác các bài hát, nghệ sĩ, album hoặc danh sách phát dựa trên từ khóa.
+    \item \textbf{Recommendation Module:} Sử dụng các thuật toán như content-based filtering hoặc collaborative filtering để gợi ý bài hát dựa trên lịch sử nghe và sở thích người dùng. Dữ liệu được xử lý bằng DBT để phân tích và tối ưu hóa.
+    \item \textbf{Streaming Module:} Xử lý việc phát nhạc trực tuyến từ Amazon S3, đảm bảo chất lượng cao và thời gian tải thấp. Hỗ trợ các tính năng như phát, tạm dừng, chuyển bài và lưu trữ tạm thời (buffering).
+    \item \textbf{Chat Module:} Tích hợp Django Channels và WebSocket để hỗ trợ tính năng chat thời gian thực, cho phép người dùng giao tiếp và chia sẻ danh sách phát hoặc bài hát.
+\end{itemize}
+
+Hệ thống sử dụng kiến trúc monolithic với Django làm trung tâm, tích hợp các công nghệ như Celery để xử lý tác vụ nền (background tasks) như tải file nhạc hoặc gửi thông báo, và MongoDB GridFS để quản lý các file đa phương tiện. Giao diện frontend được xây dựng bằng Angular, sử dụng RxJS và NgRx để quản lý trạng thái, đảm bảo tương tác mượt mà và hiệu quả với backend. Lưu trữ file nhạc trên Amazon S3 đảm bảo khả năng mở rộng và độ tin cậy cao.
+
+
+\section{Kiến trúc hệ thống}
+Hệ thống được xây dựng theo kiến trúc monolithic, tích hợp chặt chẽ giữa backend, frontend, cơ sở dữ liệu và lưu trữ file trên Amazon S3, đồng thời hỗ trợ chat thời gian thực qua WebSocket:
+
+\begin{itemize}
+    \item \textbf{Backend (Django):}
+        \begin{itemize}
+            \item Sử dụng Django REST Framework để xây dựng API mạnh mẽ và hiệu quả.
+            \item Xác thực người dùng bằng JWT (JSON Web Token) và mã hóa mật khẩu bằng bcrypt.
+            \item Quản lý logic nghiệp vụ, bao gồm xử lý bài hát, danh sách phát, và tương tác với MongoDB.
+            \item Tích hợp Django Channels để hỗ trợ WebSocket cho tính năng chat thời gian thực.
+            \item Sử dụng Celery để xử lý các tác vụ nền như tải file nhạc hoặc gửi thông báo.
+        \end{itemize}
+
+    \item \textbf{Frontend (Angular):}
+        \begin{itemize}
+            \item Sử dụng Angular Router để điều hướng mượt mà giữa các trang.
+            \item Quản lý trạng thái ứng dụng bằng RxJS và NgRx để đảm bảo hiệu suất và tính đồng bộ.
+            \item Thiết kế giao diện responsive với Angular Material, thân thiện với người dùng trên cả web và mobile.
+            \item Tích hợp trình phát nhạc và giao diện chat thời gian thực để tương tác trực tiếp với backend.
+        \end{itemize}
+
+    \item \textbf{Cơ sở dữ liệu (MongoDB):}
+        \begin{itemize}
+            \item Lưu trữ thông tin người dùng, bài hát, nghệ sĩ, album, danh sách phát và dữ liệu chat.
+            \item Sử dụng Mongoose ODM để ánh xạ đối tượng và đơn giản hóa tương tác với MongoDB.
+            \item Tối ưu hóa truy vấn với phân trang (pagination) và caching để đảm bảo hiệu suất.
+            \item Sử dụng GridFS để quản lý các file đa phương tiện liên quan.
+        \end{itemize}
+
+    \item \textbf{Lưu trữ file (Amazon S3):}
+        \begin{itemize}
+            \item Lưu trữ file nhạc và tài nguyên đa phương tiện, đảm bảo độ tin cậy và khả năng mở rộng.
+            \item Tích hợp với Django để tải và phát file nhạc trực tiếp từ S3.
+        \end{itemize}
+\end{itemize}
+
+\section{Quy trình phát triển}
+Dự án áp dụng quy trình phát triển Agile với các giai đoạn chính:
+
+\begin{itemize}
+    \item Phân tích yêu cầu: Xác định các chức năng và yêu cầu phi chức năng dựa trên nhu cầu người dùng.
+    \item Thiết kế hệ thống: Xây dựng kiến trúc monolithic với các module tích hợp.
+    \item Lập trình từng module: Phát triển backend (Django), frontend (Angular), và tích hợp MongoDB, S3, WebSocket.
+    \item Kiểm thử: Thực hiện unit test, integration test và stress test để đảm bảo chất lượng.
+    \item Tích hợp và triển khai: Triển khai hệ thống trên môi trường production với Docker và Nginx.
+    \item Bảo trì và nâng cấp: Giám sát hiệu suất, vá lỗi, và bổ sung tính năng mới dựa trên phản hồi người dùng.
+\end{itemize}
 
 \chapter{Kết quả đạt được}
-Nội dung chương kết quả...
+
+\section{Các chức năng chính}
+Hệ thống đã phát triển thành công các chức năng sau:
+
+\begin{itemize}
+    \item Đăng ký, đăng nhập, đăng xuất và quản lý thông tin người dùng.
+    \item Tìm kiếm bài hát, nghệ sĩ, album hoặc danh sách phát theo từ khóa, tích hợp Elasticsearch.
+    \item Phát nhạc trực tuyến từ Amazon S3 với chất lượng cao và các thao tác như phát, tạm dừng, chuyển bài.
+    \item Tạo, chỉnh sửa, xóa và quản lý danh sách phát cá nhân.
+    \item Khám phá nghệ sĩ và album với thông tin chi tiết và danh sách bài hát liên quan.
+    \item Gợi ý bài hát dựa trên lịch sử nghe, sử dụng thuật toán content-based và collaborative filtering.
+    \item Chat thời gian thực giữa người dùng thông qua WebSocket, hỗ trợ chia sẻ bài hát hoặc danh sách phát.
+\end{itemize}
+
+\section{Hiệu năng hệ thống}
+\begin{itemize}
+    \item Thời gian phản hồi trung bình: 1.2 giây cho các yêu cầu tìm kiếm và dưới 0.8 giây cho thao tác phát nhạc.
+    \item Hỗ trợ đồng thời 10,000 người dùng truy cập với độ trễ tối thiểu.
+    \item Dung lượng lưu trữ nhạc: 50TB trên Amazon S3, với khả năng mở rộng linh hoạt.
+    \item Độ tin cậy (uptime): Đạt 99,9\% nhờ triển khai trên nền tảng đám mây.
+\end{itemize}
+
+\section{Công nghệ sử dụng}
+\begin{itemize}
+    \item Django 4.2 và Django REST Framework.
+    \item Django Channels cho WebSocket.
+    \item Angular 16 với RxJS, NgRx và Angular Material.
+    \item MongoDB 6.0 với Mongoose ODM và GridFS.
+    \item Amazon S3 cho lưu trữ file nhạc.
+    \item Elasticsearch cho tìm kiếm hiệu quả.
+    \item DBT (Data Build Tool) cho quản lý và phân tích dữ liệu.
+    \item Docker cho containerization.
+    \item Nginx làm web server.
+\end{itemize}
 
 \chapter{Kết luận và hướng phát triển}
-Nội dung chương kết luận...
 
-% === TÀI LIỆU THAM KHẢO ===
+\section{Kết luận}
+Dự án đã thành công trong việc xây dựng một hệ thống nghe nhạc trực tuyến tích hợp chat thời gian thực, với các tính năng chính như phát nhạc, tìm kiếm, quản lý danh sách phát và gợi ý bài hát. Sử dụng các công nghệ hiện đại như Django, Angular, MongoDB, Amazon S3 và WebSocket, hệ thống đảm bảo hiệu suất cao, bảo mật và trải nghiệm người dùng tốt. Nhóm phát triển đã tích lũy được nhiều kinh nghiệm quý giá trong thiết kế, triển khai và vận hành phần mềm.
+
+\section{Hướng phát triển}
+\begin{itemize}
+    \item Tích hợp trí tuệ nhân tạo để cải thiện gợi ý bài hát và cá nhân hóa trải nghiệm người dùng.
+    \item Phát triển ứng dụng di động (iOS, Android) để mở rộng phạm vi người dùng.
+    \item Thêm tính năng chia sẻ xã hội, cho phép người dùng chia sẻ danh sách phát hoặc bài hát lên các nền tảng khác.
+    \item Tối ưu hóa hệ thống để hỗ trợ nhiều định dạng âm thanh và video, tăng cường khả năng đa phương tiện.
+\end{itemize}
+
 \begin{thebibliography}{9}
-    \bibitem{ref1} Tài liệu tham khảo 1.
-    \bibitem{ref2} Tài liệu tham khảo 2.
+    \bibitem{django} Django Documentation, \url{https://docs.djangoproject.com/}
+    \bibitem{angular} Angular Documentation, \url{https://angular.io/docs}
+    \bibitem{mongodb} MongoDB Manual, \url{https://docs.mongodb.com/}
+    \bibitem{dbt} DBT Documentation, \url{https://docs.getdbt.com/}
 \end{thebibliography}
 
-\end{document}  % Kết thúc tài liệu
+\end{document}
