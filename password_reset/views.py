@@ -17,19 +17,16 @@ class PasswordResetRequestView(APIView):
 
     def post(self, request):
         email = request.data.get('email')
-        print(f"Received email: {email}")  # Debug: In email nhận được
         if not email:
             return Response({'error': 'Email is required'}, status=status.HTTP_400_BAD_REQUEST)
 
         # Find user by email
         user = User.objects.filter(email=email).first()
-        print(f"User found: {user}")  # Debug: Kiểm tra user
         if not user:
             return Response({'message': 'If this email exists, a reset code has been sent'}, status=status.HTTP_200_OK)
 
         # Generate a 6-digit code
         code = ''.join(random.choices(string.digits, k=6))
-        print(f"Generated code: {code}")  # Debug: In mã code
 
         # Set expiration (1 hour)
         expires_at = datetime.now() + timedelta(hours=1)
@@ -42,25 +39,21 @@ class PasswordResetRequestView(APIView):
                 expires_at=expires_at
             )
             reset_code.save()
-            print("Reset code saved successfully")  # Debug: Xác nhận lưu MongoDB
+            print("Reset code saved successfully")
         except Exception as e:
-            print(f"MongoDB save error: {str(e)}")  # Debug: Lỗi MongoDB
             return Response({'error': f"Failed to save reset code: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         # Send email
         subject = 'Your Password Reset Code'
         message = f"""
-Hello {user.username},
 
-You requested a password reset for your Spotify Clone account.
-Your password reset code is: {code}
-
-This code will expire in 1 hour.
-
-If you didn't request this, please ignore this email.
-
-Regards,
-The Spotify Clone Team
+        Xin chào {user.username},
+        
+        Bạn đã yêu cầu đặt lại mật khẩu cho tài khoản Spotify của mình.
+        Mã đặt lại mật khẩu của bạn là: {code}
+        
+        Mã này sẽ hết hạn sau 1 giờ.
+        
         """
 
         try:
@@ -73,9 +66,8 @@ The Spotify Clone Team
                     fail_silently=False,
                     connection=connection,
                 )
-            print("Email sent successfully")  # Debug: Xác nhận gửi email
+            print("Email sent successfully")
         except Exception as e:
-            print(f"Email sending error: {str(e)}")  # Debug: Lỗi gửi email
             return Response({'error': f"Failed to send email: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         return Response({'message': 'Reset code sent successfully'}, status=status.HTTP_200_OK)
