@@ -191,3 +191,12 @@ AWS_DEFAULT_ACL = None
 AWS_S3_SIGNATURE_VERSION = 's3v4'
 AWS_S3_ADDRESSING_STYLE = 'virtual'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# settings.py
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'nguyennrdz123@gmail.com'
+EMAIL_HOST_PASSWORD = 'heyl njmw paiz tsbt'
+DEFAULT_FROM_EMAIL = 'nguyennrdz123@gmail.com'

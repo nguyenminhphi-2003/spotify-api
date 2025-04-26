@@ -31,4 +31,5 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('api/auth/', include('accounts.urls')),
     path('api/chat/', include('chat.urls')),
+    path('api/', include('password_reset.urls')),
 ]
