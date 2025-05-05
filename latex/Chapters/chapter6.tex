@@ -1,0 +1,76 @@
+\chapter{Kết luận và hướng phát triển}
+
+\section{Tổng kết nội dung đã làm được}
+Dự án đã hoàn thành các nội dung chính sau:
+\begin{itemize}
+    \item \textbf{Phần API (Backend)}:
+    \begin{itemize}
+        \item Xây dựng API RESTful sử dụng Django REST Framework, hỗ trợ các chức năng chính như:
+        \begin{itemize}
+            \item Đăng ký, đăng nhập và xác thực người dùng.
+            \item Quản lý thông tin người dùng (CRUD).
+            \item Quản lý bài hát, album, nghệ sĩ và danh sách phát.
+            \item Tích hợp lưu trữ file nhạc và hình ảnh trên Amazon S3.
+            \item Gửi email xác minh tài khoản.
+        \end{itemize}
+        \item Sử dụng MongoDB làm cơ sở dữ liệu NoSQL để lưu trữ dữ liệu.
+        \item Tích hợp bảo mật với token-based authentication.
+        \item Xây dựng các endpoint API với khả năng phân quyền (admin, user).
+    \end{itemize}
+
+    \item \textbf{Phần Frontend}:
+    \begin{itemize}
+        \item Xây dựng giao diện người dùng bằng Angular với các tính năng:
+        \begin{itemize}
+            \item Đăng ký, đăng nhập và quản lý hồ sơ người dùng.
+            \item Hiển thị danh sách bài hát, album và nghệ sĩ.
+            \item Quản lý danh sách phát cá nhân.
+            \item Giao diện quản trị viên để quản lý người dùng, bài hát, album và nghệ sĩ.
+            \item Tích hợp phát nhạc trực tiếp với giao diện hiện đại.
+        \end{itemize}
+        \item Sử dụng Tailwind CSS để thiết kế giao diện đẹp mắt và thân thiện với người dùng.
+        \item Tích hợp API từ backend để hiển thị và xử lý dữ liệu.
+    \end{itemize}
+\end{itemize}
+
+\section{Những hạn chế}
+Mặc dù dự án đã hoàn thành các chức năng chính, vẫn còn một số hạn chế:
+\begin{itemize}
+    \item \textbf{Phần API}:
+    \begin{itemize}
+        \item Chưa tối ưu hóa hiệu suất cho các truy vấn phức tạp trong MongoDB.
+        \item Chưa triển khai đầy đủ các unit test và integration test.
+        \item Chưa hỗ trợ tính năng streaming nhạc trực tiếp.
+    \end{itemize}
+    \item \textbf{Phần Frontend}:
+    \begin{itemize}
+        \item Một số giao diện chưa được tối ưu hóa cho thiết bị di động.
+        \item Chưa có tính năng tìm kiếm nâng cao (lọc theo thể loại, nghệ sĩ, album).
+        \item Chưa tích hợp thông báo thời gian thực (real-time notifications).
+    \end{itemize}
+\end{itemize}
+
+\section{Hướng phát triển}
+Dự án có thể được mở rộng và cải thiện trong tương lai với các hướng sau:
+\begin{itemize}
+    \item \textbf{Phần API}:
+    \begin{itemize}
+        \item Tối ưu hóa hiệu suất truy vấn và sử dụng caching để giảm tải cho cơ sở dữ liệu.
+        \item Triển khai tính năng streaming nhạc trực tiếp.
+        \item Bổ sung các unit test và integration test để đảm bảo chất lượng mã nguồn.
+        \item Tích hợp thêm các API bên thứ ba như Spotify API để mở rộng dữ liệu bài hát và nghệ sĩ.
+    \end{itemize}
+    \item \textbf{Phần Frontend}:
+    \begin{itemize}
+        \item Tối ưu hóa giao diện cho thiết bị di động và các màn hình có kích thước khác nhau.
+        \item Bổ sung tính năng tìm kiếm nâng cao và gợi ý thông minh.
+        \item Tích hợp thông báo thời gian thực để cải thiện trải nghiệm người dùng.
+        \item Xây dựng ứng dụng di động (mobile app) sử dụng Flutter hoặc React Native.
+    \end{itemize}
+    \item \textbf{Triển khai và vận hành}:
+    \begin{itemize}
+        \item Triển khai hệ thống trên môi trường cloud (AWS, Azure, hoặc Google Cloud).
+        \item Sử dụng CI/CD để tự động hóa quá trình triển khai và kiểm thử.
+        \item Theo dõi và giám sát hệ thống bằng các công cụ như Prometheus và Grafana.
+    \end{itemize}
+\end{itemize}
