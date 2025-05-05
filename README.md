@@ -7,13 +7,14 @@ This is a Django application with WebSocket capabilities through Channels, utili
 - Python 3.8+
 - MongoDB
 - pip
+- Linux-based OS *(Optional)*
 
 ## Installation
 
 1. Clone the repository:
    ```
-   git clone https://github.com/yourusername/spotify-app.git
-   cd spotify-app
+   git clone https://github.com/nguyenminhphi-2003/spotify-api
+   cd spotify-api
    ```
 
 2. Create and activate a virtual environment:
@@ -22,9 +23,6 @@ This is a Django application with WebSocket capabilities through Channels, utili
    
    # On Windows
    venv\Scripts\activate
-   
-   # On macOS/Linux
-   source venv/bin/activate
    ```
 
 3. Install dependencies:
@@ -67,10 +65,6 @@ The project uses:
 - **MongoDB/MongoEngine**: NoSQL database
 - **Boto3**: AWS SDK for Python, likely for S3 file storage
 
-## API Documentation
-
-*API documentation to be added*
-
 ## Tests
 
 To run tests:
@@ -81,4 +75,4 @@ python manage.py test
 
 ## License
 
-*Add your license information here*
+*This project is licensed under the terms of the MIT license.*
