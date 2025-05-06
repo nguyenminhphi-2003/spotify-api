@@ -1,35 +1,38 @@
-\documentclass[a4paper,12pt]{report}  % Định dạng tài liệu dạng báo cáo
-\usepackage[utf8]{vietnam}             % Hỗ trợ tiếng Việt
-\usepackage{graphicx}                  % Hỗ trợ chèn hình ảnh
-\usepackage{hyperref}                   % Hỗ trợ liên kết
-\usepackage{amsmath, amssymb}           % Công thức toán học
-\usepackage{geometry}                   % Căn chỉnh lề
+\documentclass[a4paper,12pt]{report}
+\usepackage[utf8]{vietnam}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{subcaption}
+\usepackage{float} % để dùng [H]
 \geometry{left=3cm, right=2.5cm, top=3cm, bottom=2.5cm}
-
-\begin{document}  % Bắt đầu tài liệu chính
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning}
+\begin{document}
 
 % === TRANG BÌA ===
 \begin{titlepage}
     \centering
-    \includegraphics[width=4cm]{logoITSGU.png} \\[1cm]
+    \includegraphics[width=4cm]{imgs/logoITSGU.png} \\[1cm]
     \textbf{\Large TRƯỜNG ĐẠI HỌC SÀI GÒN} \\[0.5cm]
     \textbf{\Large KHOA CÔNG NGHỆ THÔNG TIN} \\[2cm]
     {\Huge \textbf{BÁO CÁO ĐỒ ÁN}} \\[2cm]
 
     \begin{center}
-        \begin{tabular}{|c|c|c|}
+        \begin{tabular}{|c|c|c|c|}
             \hline
-            \textbf{Họ và tên sinh viên} & \textbf{Mã số sinh viên} & \textbf{Lớp} \\
+            \textbf{Họ và tên sinh viên} & \textbf{Mã số sinh viên} & \textbf{Lớp}   \\
             \hline
-            Trần Công Nguyên & 3121410352 & DCT1212 \\
+            Trần Công Nguyên & 3121410352 & DCT1212  \\
             \hline
-            Trần Thị Thủy & 3121410487 & DCT1218 \\
+            Trần Thị Thủy & 3121410487 & DCT1218  \\
             \hline
-            Nguyễn Minh Quang & 3121560008 & DKP1211 \\
+            Nguyễn Minh Quang & 3121560008 & DKP1211  \\
             \hline
-            Nguyễn Minh Phi & 3121560067 & DKP1211 \\
+            Nguyễn Minh Phi & 3121560067 & DKP1211  \\
             \hline
-            Phan Thị Anh Thư & 3121410904 & DCT1212 \\
+            Phan Thị Anh Thư & 3121410490 & DCT1212 \\
             \hline
         \end{tabular}
     \end{center}
@@ -41,34 +44,9 @@
     TP. Hồ Chí Minh, \today
 \end{titlepage}
 
-\newpage  % Bắt đầu trang mới sau trang bìa
-
-% === MỤC LỤC ===
-\tableofcontents
 \newpage
+\tableofcontents
 
-\chapter{Giới thiệu}
-Nội dung chương giới thiệu...
 
-\chapter{Lý do chọn đề tài}
-Nội dung chương lý do chọn đề tài...
 
-\chapter{Mục tiêu}
-Nội dung chương mục tiêu...
-
-\chapter{Phương pháp thực hiện}
-Nội dung chương phương pháp...
-
-\chapter{Kết quả đạt được}
-Nội dung chương kết quả...
-
-\chapter{Kết luận và hướng phát triển}
-Nội dung chương kết luận...
-
-% === TÀI LIỆU THAM KHẢO ===
-\begin{thebibliography}{9}
-    \bibitem{ref1} Tài liệu tham khảo 1.
-    \bibitem{ref2} Tài liệu tham khảo 2.
-\end{thebibliography}
-
-\end{document}  % Kết thúc tài liệu
+\end{document}
