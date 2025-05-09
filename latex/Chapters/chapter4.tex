@@ -1,60 +1,6 @@
-\documentclass[12pt,a4paper]{article}
-\usepackage[utf8]{vietnam}
-\usepackage{graphicx}
-\usepackage{hyperref}
-\usepackage{listings}
-\usepackage{xcolor}
-\usepackage{tcolorbox}
-\usepackage{geometry}
-\usepackage{fancyhdr}
-\usepackage{titlesec}
-
-\geometry{a4paper, margin=2.5cm}
-
-\hypersetup{
-    colorlinks=true,
-    linkcolor=blue,
-    filecolor=magenta,
-    urlcolor=blue,
-}
-
-\lstset{
-    backgroundcolor=\color{gray!10},
-    basicstyle=\ttfamily\small,
-    breaklines=true,
-    captionpos=b,
-    commentstyle=\color{green!50!black},
-    keywordstyle=\color{blue},
-    stringstyle=\color{red},
-    numberstyle=\tiny\color{gray},
-    numbers=left,
-    numbersep=5pt,
-    frame=single,
-    framesep=5pt,
-    rulecolor=\color{black!30},
-    tabsize=4
-}
-
-% Định dạng heading cho section
-\titleformat{\section}
-  {\LARGE\bfseries\centering}
-  {}
-  {0em}
-  {}
-  []
-
-% Bỏ title và author
-\date{}
-
-\begin{document}
-
-\begin{center}
-    \Huge\textbf{BÁO CÁO DỰ ÁN}
-\end{center}
-
+\chapter{Cài đặt môi trường và chương trình}
 \section*{I. BACKEND}
 
-% Nội dung từ đoạn code Backend
 \section{Cài đặt Python}
 
 Python là ngôn ngữ lập trình cốt lõi cho dự án Django của chúng ta. Django 5.0.13 yêu cầu Python phiên bản 3.10 trở lên.
@@ -85,12 +31,12 @@ hoặc
 python3 --version
 \end{lstlisting}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.7\linewidth]{python_version.png}
-    \caption{Kết quả lệnh kiểm tra phiên bản Python}
-    \label{fig:python-version}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.7\linewidth]{python_version.png}
+%     \caption{Kết quả lệnh kiểm tra phiên bản Python}
+%     \label{fig:python-version}
+% \end{figure}
 
 \section{Cài đặt MongoDB}
 
@@ -129,12 +75,12 @@ Mở terminal hoặc command prompt và chạy:
 mongosh
 \end{lstlisting}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\linewidth]{mongodb_running.png}
-    \caption{Màn hình MongoDB đang chạy}
-    \label{fig:mongodb-running}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.8\linewidth]{mongodb_running.png}
+%     \caption{Màn hình MongoDB đang chạy}
+%     \label{fig:mongodb-running}
+% \end{figure}
 
 \section{Thiết lập môi trường ảo Python}
 
@@ -203,8 +149,7 @@ pyOpenSSL==25.0.0
 python-dateutil==2.9.0.post0
 s3transfer==0.11.5
 service-identity==24.2.0
-setupt
-ools==78.1.1
+setuptools==78.1.1
 six==1.17.0
 sqlparse==0.5.3
 Twisted==24.11.0
@@ -222,12 +167,12 @@ Trong môi trường ảo đã kích hoạt, chạy lệnh sau để cài đặt
 pip install -r requirements.txt
 \end{lstlisting}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\linewidth]{pip_install.png}
-    \caption{Quá trình cài đặt các gói từ requirements.txt}
-    \label{fig:pip-install}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.8\linewidth]{pip_install.png}
+%     \caption{Quá trình cài đặt các gói từ requirements.txt}
+%     \label{fig:pip-install}
+% \end{figure}
 
 \subsection{Bước 3: Xác minh cài đặt}
 
@@ -359,30 +304,30 @@ class ChatConsumer(AsyncWebsocketConsumer):
 python manage.py runserver
 \end{lstlisting}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\linewidth]{django_running.png}
-    \caption{Server Django đang chạy thành công}
-    \label{fig:django-running}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.8\linewidth]{django_running.png}
+%     \caption{Server Django đang chạy thành công}
+%     \label{fig:django-running}
+% \end{figure}
 
 \subsection{Bước 2: Kiểm tra kết nối}
 
 Mở trình duyệt web và truy cập địa chỉ: \url{http://127.0.0.1:8000/}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\linewidth]{django_welcome.png}
-    \caption{Giao diện trang web Django mặc định}
-    \label{fig:django-welcome}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.8\linewidth]{django_welcome.png}
+%     \caption{Giao diện trang web Django mặc định}
+%     \label{fig:django-welcome}
+% \end{figure}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.7\linewidth]{project_structure.png}
-    \caption{Cấu trúc thư mục dự án}
-    \label{fig:project-structure}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.7\linewidth]{project_structure.png}
+%     \caption{Cấu trúc thư mục dự án}
+%     \label{fig:project-structure}
+% \end{figure}
 
 \section{Cấu hình AWS}
 
@@ -453,7 +398,7 @@ Báo cáo này đã hướng dẫn chi tiết các bước cài đặt môi trư
 
 Cấu trúc dự án cuối cùng như sau:
 
-\begin{lstlisting}
+\begin{verbatim}
 myproject/
 ├── myenv/                  # Môi trường ảo Python
 ├── myproject/              # Thư mục dự án Django
@@ -471,7 +416,7 @@ myproject/
 ├── manage.py
 ├── requirements.txt        # File yêu cầu cài đặt
 └── .env                    # Biến môi trường (không đưa lên Git)
-\end{lstlisting}
+\end{verbatim}
 
 \subsection{Hướng phát triển tiếp theo}
 
@@ -487,7 +432,6 @@ Sau khi hoàn thành cài đặt môi trường cơ bản, một số hướng p
 
 \section*{II. FRONTEND}
 
-% Nội dung từ đoạn code Frontend
 Dự án Front-end Spotify là ứng dụng web được phát triển bằng Angular framework. Tài liệu này hướng dẫn chi tiết quá trình cài đặt và cấu hình môi trường phát triển cho ứng dụng.
 
 \subsection{Yêu cầu hệ thống}
@@ -508,11 +452,11 @@ Trước khi bắt đầu, đảm bảo máy tính của bạn đáp ứng các 
 
 Node.js là môi trường chạy JavaScript phía máy chủ, cần thiết cho việc phát triển ứng dụng Angular.
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.7\textwidth]{nodejs-website.png}
-\caption{Trang tải Node.js từ nodejs.org}
-\end{figure}
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.7\textwidth]{nodejs-website.png}
+% \caption{Trang tải Node.js từ nodejs.org}
+% \end{figure}
 
 \begin{enumerate}
   \item Truy cập \url{https://nodejs.org}
@@ -526,21 +470,21 @@ node --version
 npm --version
 \end{lstlisting}
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.6\textwidth]{node-version-check.png}
-\caption{Kiểm tra phiên bản Node.js và npm trong terminal}
-\end{figure}
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.6\textwidth]{node-version-check.png}
+% \caption{Kiểm tra phiên bản Node.js và npm trong terminal}
+% \end{figure}
 
 \subsection{Cài đặt Angular CLI}
 
 Angular CLI là công cụ dòng lệnh chính thức để phát triển ứng dụng Angular.
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.7\textwidth]{angular-cli-structure.png}
-\caption{Cấu trúc Angular CLI}
-\end{figure}
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.7\textwidth]{angular-cli-structure.png}
+% \caption{Cấu trúc Angular CLI}
+% \end{figure}
 
 Để cài đặt Angular CLI, chạy lệnh sau trong terminal:
 
@@ -553,12 +497,6 @@ Kiểm tra cài đặt thành công:
 \begin{lstlisting}[language=bash]
 ng version
 \end{lstlisting}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.6\textwidth]{ng-version-output.png}
-\caption{Kết quả kiểm tra phiên bản Angular CLI}
-\end{figure}
 
 \subsection{Tải và cài đặt dự án}
 
@@ -573,12 +511,6 @@ ng version
   npm install
   \end{lstlisting}
 \end{enumerate}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.7\textwidth]{npm-install-process.png}
-\caption{Quá trình cài đặt dependencies với npm install}
-\end{figure}
 
 \subsection{Cấu trúc dependencies của dự án}
 
@@ -595,16 +527,10 @@ Dự án sử dụng các thư viện chính sau:
 \end{itemize}
 \end{tcolorbox}
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{angular-architecture.png}
+\includegraphics[width=0.8\textwidth]{latex/imgs/kientruc.jpg}
 \caption{Kiến trúc tổng quan của ứng dụng Angular}
-\end{figure}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.7\textwidth]{main-dependencies.png}
-\caption{Các dependencies chính và mối quan hệ giữa chúng}
 \end{figure}
 
 \subsection{File package.json của dự án}
@@ -663,19 +589,7 @@ File \texttt{package.json} định nghĩa các dependencies và scripts của d�
 }
 \end{lstlisting}
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.65\textwidth]{package-json-structure.png}
-\caption{Cấu trúc và các thành phần của file package.json}
-\end{figure}
-
 \subsection{Chạy ứng dụng trong môi trường phát triển}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.7\textwidth]{spotify-app-running.png}
-\caption{Giao diện ứng dụng chạy thành công}
-\end{figure}
 
 Để khởi chạy ứng dụng trong môi trường phát triển:
 
@@ -686,12 +600,6 @@ ng serve
 \end{lstlisting}
 
 Sau khi khởi chạy thành công, ứng dụng sẽ chạy tại địa chỉ \url{http://localhost:4200/}.
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.7\textwidth]{ng-serve-output.png}
-\caption{Kết quả terminal khi chạy lệnh ng serve}
-\end{figure}
 
 \subsection{Cấu hình TailwindCSS}
 
@@ -717,12 +625,6 @@ module.exports = {
 }
 \end{lstlisting}
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.65\textwidth]{tailwind-config.png}
-\caption{Cấu hình TailwindCSS với theme màu tùy chỉnh cho Spotify}
-\end{figure}
-
 \subsection{Build ứng dụng cho môi trường production}
 
 Để build ứng dụng cho môi trường production:
@@ -734,18 +636,6 @@ ng build --configuration production
 \end{lstlisting}
 
 Kết quả build sẽ được lưu trong thư mục \texttt{dist/}.
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.6\textwidth]{dist-folder-structure.png}
-\caption{Cấu trúc thư mục sau khi build}
-\end{figure}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.7\textwidth]{build-process.png}
-\caption{Quá trình build ứng dụng cho môi trường production}
-\end{figure}
 
 \subsection{Kiểm thử ứng dụng}
 
@@ -759,18 +649,6 @@ ng test
 
 Kết quả test sẽ hiển thị trong terminal và trình duyệt.
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.7\textwidth]{karma-test-runner.png}
-\caption{Kết quả chạy Karma test runner}
-\end{figure}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.7\textwidth]{test-coverage.png}
-\caption{Báo cáo độ phủ của unit test}
-\end{figure}
-
 \subsection{Xử lý sự cố thường gặp}
 
 \begin{tcolorbox}[colback=red!5,colframe=red!40!black,title=Các lỗi thường gặp và cách khắc phục]
@@ -783,7 +661,7 @@ Kết quả test sẽ hiển thị trong terminal và trình duyệt.
   
   \item \textbf{Lỗi khi cài đặt dependencies}:
   \begin{itemize}
-    \item Xóa thư mục node\_modules và file package-lock.json
+    \item Xóa thư mục node_modules và file package-lock.json
     \item Chạy lại lệnh npm install
     \item Kiểm tra quyền truy cập hệ thống
   \end{itemize}
@@ -796,12 +674,6 @@ Kết quả test sẽ hiển thị trong terminal và trình duyệt.
 \end{enumerate}
 \end{tcolorbox}
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.7\textwidth]{common-errors.png}
-\caption{Ví dụ về các lỗi thường gặp khi phát triển}
-\end{figure}
-
 \subsection{Tài liệu tham khảo}
 
 \begin{itemize}
@@ -810,11 +682,5 @@ Kết quả test sẽ hiển thị trong terminal và trình duyệt.
   \item Tài liệu TailwindCSS: \url{https://tailwindcss.com/docs}
   \item Tài liệu Chart.js: \url{https://www.chartjs.org/docs/latest/}
 \end{itemize}
+\end{xaiArtifact>
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.8\textwidth]{reference-docs.png}
-\caption{Tài liệu tham khảo chính cho dự án}
-\end{figure}
-
-\end{document}

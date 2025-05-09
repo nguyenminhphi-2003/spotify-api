@@ -2,21 +2,21 @@
 \section{Tổng hợp đóng góp}
 Bảng dưới đây tổng hợp vai trò và nhiệm vụ chính của từng thành viên trong nhóm:
 
-\begin{table}[h!]
+\begin{table}[H]
     \centering
     \begin{tabular}{|c|c|p{10cm}|}
         \hline
         \textbf{Họ và tên} & \textbf{Vai trò} & \textbf{Nhiệm vụ chính} \\
         \hline
-        Nguyễn Minh Phi & Backend & Phát triển các API, quản lý hệ thống và triển khai backend. \\
+        Nguyễn Minh Phi & Fullstack & Khởi tạo, mantain dự án, websocket, chatbot. \\
         \hline
-        Nguyễn Công Nguyên & Frontend & Phát triển giao diện người dùng và kết nối với API. \\
+            Trần Công Nguyên & Fullstack & Phát triển giao diện API, Quản ký và triển khai web. \\
         \hline
-        Phan Thị Anh Thư & Frontend & Xây dựng giao diện người dùng và quản lý cấu hình môi trường. \\
+        Phan Thị Anh Thư & Fullstack &  Album, artists , song. \\
         \hline
-        Trần Thị Thủy & Frontend & Phát triển giao diện người dùng và kết nối với API. \\
+        Trần Thị Thủy & Fullstack & User(admin), login/register, profile,thống kê. \\
         \hline
-        Nguyễn Minh Quang & Frontend & Phát triển giao diện và tích hợp các tính năng frontend. \\
+        Nguyễn Minh Quang & Fullstack & Thực hiện API, giao diện thông báo, Báo cáo latex. \\
         \hline
     \end{tabular}
     \caption{Tổng hợp đóng góp của các thành viên}
@@ -25,57 +25,271 @@ Bảng dưới đây tổng hợp vai trò và nhiệm vụ chính của từng 
 \section{Chi tiết công việc từng thành viên}
 \subsection{Nguyễn Minh Phi}
 \begin{itemize}
-    \item 
+    \item Khởi tạo và duy trì (maintain) dự án
     \begin{itemize}
-        \item 
-        \item 
+        \item Thiết lập cấu trúc dự án ban đầu, tạo repository GitHub và thiết lập quy trình làm việc
+        \item Thiết lập CI/CD pipeline để tự động hóa quá trình triển khai
+        \item Quản lý các phiên bản thư viện và dependencies
+        \item Thực hiện code review và giải quyết xung đột khi merge code
+        \item Tối ưu hóa hiệu suất tổng thể của hệ thống
+        \item Theo dõi và khắc phục lỗi trong quá trình phát triển
     \end{itemize}
-    \item 
-    \item 
+    
+    \item Phát triển tính năng WebSocket
+    \begin{itemize}
+        \item Thiết kế và triển khai kiến trúc WebSocket cho giao tiếp real-time
+        \item Xây dựng server WebSocket với Express và Socket.IO
+        \item Phát triển các sự kiện và listeners cho các tính năng như nhắn tin, thông báo
+        \item Tối ưu hóa kết nối để giảm độ trễ và tăng hiệu suất
+        \item Xử lý các tình huống mất kết nối và tự động kết nối lại
+        \item Đảm bảo an toàn thông tin trong quá trình truyền dữ liệu
+        \item Triển khai cơ chế broadcast để gửi dữ liệu đến nhiều người dùng
+    \end{itemize}
+    
+    \item Phát triển tính năng Chatbot
+    \begin{itemize}
+        \item Thiết kế kiến trúc và luồng xử lý cho chatbot
+        \item Xây dựng hệ thống xử lý ngôn ngữ tự nhiên (NLP) cho chatbot
+        \item Tích hợp các API AI như OpenAI hoặc Google Dialogflow
+        \item Phát triển cơ chế xử lý và phản hồi tin nhắn
+        \item Thiết kế hệ thống lưu trữ và truy xuất lịch sử chat
+        \item Xây dựng giao diện người dùng cho chatbot
+        \item Kiểm thử và cải thiện độ chính xác của chatbot
+        \item Thêm tính năng phân tích cảm xúc người dùng
+        \item Phát triển khả năng gợi ý bài hát và nội dung dựa trên yêu cầu
+    \end{itemize}
+    
+    \item Các công việc khác
+    \begin{itemize}
+        \item Hỗ trợ các thành viên trong nhóm giải quyết vấn đề kỹ thuật
+        \item Đánh giá và lựa chọn công nghệ phù hợp cho dự án
+        \item Nghiên cứu và áp dụng các phương pháp tối ưu hóa mới
+        \item Xây dựng tài liệu kỹ thuật và hướng dẫn sử dụng API
+        \item Phát triển và cải thiện quy trình CI/CD
+    \end{itemize}
 \end{itemize}
-\subsection{Nguyễn Công Nguyên}
+
+\subsection{Trần Công Nguyên}
 \begin{itemize}
-    \item 
+    \item Phát triển giao diện API
     \begin{itemize}
-        \item
-        \item 
-        \item 
+        \item Thiết kế kiến trúc RESTful API cho toàn bộ hệ thống
+        \item Xây dựng API Gateway để quản lý và định tuyến các yêu cầu
+        \item Phát triển các endpoint cho các chức năng chính của ứng dụng
+        \item Tạo tài liệu API sử dụng Swagger hoặc OpenAPI
+        \item Triển khai cơ chế xác thực và phân quyền trên API
+        \item Tối ưu hóa hiệu suất của API thông qua caching và indexing
+        \item Thiết kế cơ chế xử lý lỗi và trả về thông báo phù hợp
+        \item Phát triển middleware để xử lý các yêu cầu trước khi đến controller
     \end{itemize}
-    \item
-    \item 
+    
+    \item Quản lý và triển khai web
+    \begin{itemize}
+        \item Thiết lập môi trường phát triển, staging và production
+        \item Cấu hình server và cài đặt các dịch vụ cần thiết
+        \item Triển khai ứng dụng lên các nền tảng cloud như AWS, Azure, hoặc Google Cloud
+        \item Cấu hình và quản lý cơ sở dữ liệu
+        \item Thiết lập quy trình backup và phục hồi dữ liệu
+        \item Cấu hình DNS và quản lý domain
+        \item Triển khai HTTPS và đảm bảo an ninh cho ứng dụng
+        \item Giám sát hiệu suất và xử lý sự cố hệ thống
+        \item Tối ưu hóa tài nguyên server và quản lý chi phí
+        \item Thiết lập hệ thống logging và monitoring
+    \end{itemize}
+    
+    \item Công việc chi tiết thêm
+    \begin{itemize}
+        \item Phát triển tính năng streaming nhạc với chất lượng cao
+        \item Thiết kế và triển khai Content Delivery Network (CDN) cho phân phối nội dung
+        \item Tích hợp các dịch vụ thanh toán cho tài khoản premium
+        \item Phát triển API cho các ứng dụng di động
+        \item Thiết kế hệ thống đề xuất bài hát dựa trên lịch sử nghe
+        \item Xây dựng dashboard cho người quản trị
+        \item Tối ưu hóa trải nghiệm người dùng trên nhiều thiết bị
+    \end{itemize}
 \end{itemize}
+
 \subsection{Phan Thị Anh Thư}
 \begin{itemize}
-    \item 
+    \item Phát triển tính năng Album
     \begin{itemize}
-        \item
-        \item 
+        \item Thiết kế và xây dựng cơ sở dữ liệu cho quản lý album
+        \item Phát triển API CRUD cho album (tạo, đọc, cập nhật, xóa)
+        \item Xây dựng giao diện người dùng để hiển thị và tương tác với album
+        \item Thiết kế trang chi tiết album với danh sách bài hát
+        \item Phát triển chức năng tìm kiếm và lọc album
+        \item Xây dựng hệ thống phân loại album theo thể loại, nghệ sĩ, năm phát hành
+        \item Thiết kế cơ chế cache để tối ưu hiệu suất tải album
+        \item Phát triển chức năng đánh giá và bình luận cho album
+        \item Xây dựng tính năng chia sẻ album lên mạng xã hội
+        \item Tích hợp hệ thống đề xuất album liên quan
     \end{itemize}
-    \item
-    \item 
+    
+    \item Phát triển tính năng Artists
+    \begin{itemize}
+        \item Thiết kế và xây dựng cơ sở dữ liệu cho quản lý nghệ sĩ
+        \item Phát triển API CRUD cho nghệ sĩ (tạo, đọc, cập nhật, xóa)
+        \item Xây dựng trang hồ sơ nghệ sĩ với thông tin chi tiết
+        \item Thiết kế giao diện hiển thị danh sách các nghệ sĩ
+        \item Phát triển chức năng tìm kiếm và lọc nghệ sĩ
+        \item Xây dựng hệ thống phân loại nghệ sĩ theo thể loại, quốc gia
+        \item Thiết kế cơ chế hiển thị album và bài hát của nghệ sĩ
+        \item Phát triển tính năng theo dõi nghệ sĩ yêu thích
+        \item Xây dựng hệ thống thông báo khi nghệ sĩ phát hành nội dung mới
+        \item Tích hợp liên kết với các trang mạng xã hội của nghệ sĩ
+    \end{itemize}
+    
+    \item Phát triển tính năng Song
+    \begin{itemize}
+        \item Thiết kế và xây dựng cơ sở dữ liệu cho quản lý bài hát
+        \item Phát triển API CRUD cho bài hát (tạo, đọc, cập nhật, xóa)
+        \item Xây dựng giao diện người dùng để hiển thị và phát nhạc
+        \item Thiết kế trình phát nhạc với các chức năng cơ bản (play, pause, skip)
+        \item Phát triển chức năng tìm kiếm và lọc bài hát
+        \item Xây dựng hệ thống phân loại bài hát theo thể loại, nghệ sĩ, album
+        \item Thiết kế cơ chế streaming nhạc với nhiều chất lượng
+        \item Phát triển tính năng tạo và quản lý playlist
+        \item Xây dựng hệ thống đề xuất bài hát tương tự
+        \item Tích hợp hiển thị lời bài hát và đồng bộ với nhạc
+        \item Phát triển chức năng chia sẻ bài hát lên mạng xã hội
+        \item Xây dựng hệ thống thống kê lượt nghe cho bài hát
+    \end{itemize}
+    
+    \item Các công việc khác
+    \begin{itemize}
+        \item Tối ưu hóa quá trình tải và phát nhạc
+        \item Phát triển tính năng radio tự động dựa trên thể loại
+        \item Xây dựng hệ thống đề xuất nội dung theo sở thích người dùng
+        \item Thiết kế chức năng khám phá nhạc mới
+        \item Phát triển giao diện quản lý nội dung cho admin
+        \item Xây dựng hệ thống báo cáo và thống kê cho nội dung
+    \end{itemize}
 \end{itemize}
 
 \subsection{Trần Thị Thủy}
 \begin{itemize}
-    \item 
+    \item Phát triển tính năng User (Admin)
     \begin{itemize}
-        \item
-        \item
+        \item Thiết kế và xây dựng cơ sở dữ liệu cho quản lý người dùng
+        \item Phát triển API CRUD cho người dùng (tạo, đọc, cập nhật, xóa)
+        \item Xây dựng giao diện quản lý người dùng cho admin
+        \item Thiết kế hệ thống phân quyền và vai trò cho người dùng
+        \item Phát triển chức năng tìm kiếm và lọc người dùng
+        \item Xây dựng hệ thống quản lý hoạt động người dùng
+        \item Thiết kế cơ chế cấp phát và thu hồi quyền truy cập
+        \item Phát triển giao diện theo dõi hoạt động người dùng
+        \item Xây dựng hệ thống cảnh báo và thông báo cho admin
+        \item Tích hợp chức năng xuất báo cáo về người dùng
     \end{itemize}
-    \item 
-    \item
+    
+    \item Phát triển tính năng Login/Register
+    \begin{itemize}
+        \item Thiết kế giao diện đăng nhập và đăng ký
+        \item Phát triển API xác thực người dùng
+        \item Xây dựng cơ chế bảo mật mật khẩu với mã hóa
+        \item Thiết kế và triển khai xác thực hai yếu tố (2FA)
+        \item Phát triển chức năng quên mật khẩu và khôi phục tài khoản
+        \item Xây dựng hệ thống xác thực qua email
+        \item Thiết kế cơ chế đăng nhập bằng mạng xã hội (OAuth)
+        \item Phát triển chức năng ghi nhớ đăng nhập (Remember me)
+        \item Xây dựng hệ thống theo dõi và phát hiện đăng nhập bất thường
+        \item Tích hợp CAPTCHA để ngăn chặn bot
+        \item Phát triển cơ chế chống brute force attack
+    \end{itemize}
+    
+    \item Phát triển tính năng Profile
+    \begin{itemize}
+        \item Thiết kế giao diện trang hồ sơ người dùng
+        \item Phát triển API để cập nhật thông tin cá nhân
+        \item Xây dựng chức năng quản lý avatar và ảnh bìa
+        \item Thiết kế hệ thống hiển thị lịch sử hoạt động
+        \item Phát triển chức năng thay đổi mật khẩu
+        \item Xây dựng tính năng quản lý thiết bị đăng nhập
+        \item Thiết kế giao diện hiển thị playlist và bài hát yêu thích
+        \item Phát triển chức năng quản lý kết nối với mạng xã hội
+        \item Xây dựng hệ thống cài đặt riêng tư
+        \item Tích hợp thông báo và cảnh báo cho người dùng
+    \end{itemize}
+    
+    \item Phát triển tính năng Thống kê
+    \begin{itemize}
+        \item Thiết kế hệ thống thu thập dữ liệu thống kê
+        \item Phát triển API để truy xuất và phân tích dữ liệu
+        \item Xây dựng dashboard hiển thị thống kê
+        \item Thiết kế biểu đồ và đồ thị cho dữ liệu người dùng
+        \item Phát triển chức năng phân tích xu hướng
+        \item Xây dựng hệ thống báo cáo theo thời gian thực
+        \item Thiết kế cơ chế xuất báo cáo theo nhiều định dạng
+        \item Phát triển chức năng thống kê theo khu vực địa lý
+        \item Xây dựng hệ thống thống kê doanh thu
+        \item Tích hợp phân tích hành vi người dùng
+        \item Phát triển các công cụ dự báo dựa trên dữ liệu
+    \end{itemize}
+    
+    \item Các công việc khác
+    \begin{itemize}
+        \item Thiết kế và phát triển chức năng thông báo cho người dùng
+        \item Xây dựng hệ thống quản lý đăng ký gói dịch vụ
+        \item Phát triển tính năng giới thiệu bạn bè
+        \item Thiết kế cơ chế tích điểm và phần thưởng
+        \item Xây dựng hệ thống hỗ trợ người dùng
+    \end{itemize}
 \end{itemize}
 
 \subsection{Nguyễn Minh Quang}
 \begin{itemize}
-    \item
+    \item Thực hiện API
     \begin{itemize}
-        \item 
-        \item 
-        \item 
+        \item Phát triển và tối ưu hóa API cho hệ thống backend
+        \item Xây dựng API cho các chức năng người dùng, bài hát, album
+        \item Thiết kế và triển khai API cho hệ thống đề xuất
+        \item Phát triển API để tích hợp với các dịch vụ bên thứ ba
+        \item Xây dựng API cho hệ thống tìm kiếm và lọc
+        \item Tạo tài liệu API chi tiết cho nhóm phát triển
+        \item Thiết kế API versioning để đảm bảo khả năng mở rộng
+        \item Phát triển API cho hệ thống phân tích dữ liệu
+        \item Xây dựng API kiểm soát lưu lượng và giới hạn truy cập
+        \item Tích hợp cơ chế caching để tối ưu hiệu suất API
     \end{itemize}
-    \item 
-    \item 
+    
+    \item Phát triển giao diện thông báo
+    \begin{itemize}
+        \item Thiết kế giao diện hệ thống thông báo
+        \item Phát triển trung tâm thông báo cho người dùng
+        \item Xây dựng cơ chế thông báo thời gian thực
+        \item Thiết kế và triển khai thông báo email
+        \item Phát triển chức năng thông báo push
+        \item Xây dựng hệ thống quản lý cài đặt thông báo
+        \item Thiết kế cơ chế đánh dấu đã đọc và xóa thông báo
+        \item Phát triển giao diện hiển thị thông báo trên nhiều thiết bị
+        \item Xây dựng API để quản lý và truy xuất thông báo
+        \item Tích hợp thông báo với các sự kiện trong hệ thống
+    \end{itemize}
+    
+    \item Báo cáo LaTeX
+    \begin{itemize}
+        \item Tổng hợp tài liệu dự án để phục vụ báo cáo
+        \item Thiết kế cấu trúc báo cáo LaTeX
+        \item Viết nội dung cho các phần của báo cáo
+        \item Tạo các biểu đồ và hình ảnh minh họa
+        \item Xây dựng các bảng dữ liệu và thống kê
+        \item Tạo tài liệu hướng dẫn sử dụng hệ thống
+        \item Viết phần mô tả kỹ thuật về kiến trúc hệ thống
+        \item Tổng hợp và phân tích các kết quả kiểm thử
+        \item Xây dựng tài liệu về quy trình phát triển
+        \item Tạo tài liệu về các vấn đề gặp phải và giải pháp
+        \item Thiết kế các phụ lục kỹ thuật
+    \end{itemize}
+    
+    \item Các công việc khác
+    \begin{itemize}
+        \item Phát triển các tính năng tìm kiếm nâng cao
+        \item Xây dựng công cụ phân tích dữ liệu người dùng
+        \item Thiết kế và phát triển chức năng chia sẻ mạng xã hội
+        \item Phát triển công cụ quản lý và theo dõi lỗi
+        \item Tối ưu hóa thời gian tải trang và hiệu suất
+        \item Xây dựng hệ thống kiểm thử tự động
+        \item Phát triển các công cụ hỗ trợ phát triển
+        \item Thiết kế cơ chế đánh giá và phản hồi người dùng
+    \end{itemize}
 \end{itemize}
-
-

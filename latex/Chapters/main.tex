@@ -1,0 +1,97 @@
+\documentclass[a4paper,12pt]{report}
+\usepackage[utf8]{vietnam}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{subcaption}
+\usepackage{float} % để dùng [H]
+\usepackage{fancyhdr} % Thêm gói fancyhdr để tùy chỉnh header
+\usepackage{xcolor} % Để sử dụng màu xanh cho chữ
+
+% Thiết lập kích thước header trước khi định nghĩa geometry
+\setlength{\headheight}{45pt}
+
+% Điều chỉnh lề, đặc biệt là lề trên cao hơn để tránh chồng lấn
+\geometry{left=3cm, right=2.5cm, top=4cm, bottom=2.5cm, headheight=45pt, headsep=0.5cm}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning}
+
+% Định nghĩa kiểu header
+\fancypagestyle{reportstyle}{
+  \fancyhf{} % Xóa tất cả header và footer hiện tại
+  \fancyhead[L]{%
+    \includegraphics[height=1.5cm]{latex/imgs/logoITSGU.png}
+    \hspace{0.5cm}
+    \begin{minipage}[b]{0.7\textwidth}
+      {\color{blue}\textbf{Trường Đại học Sài Gòn}}\\
+      {\color{blue}\textbf{Khoa Công Nghệ Thông Tin}}
+    \end{minipage}
+  }
+  \renewcommand{\headrulewidth}{0.4pt} % Đường kẻ phía dưới header
+  \fancyfoot[C]{\thepage} % Thêm số trang ở giữa footer
+}
+
+% Thiết lập pagestyle mặc định cho toàn bộ tài liệu
+\pagestyle{reportstyle}
+
+% Đảm bảo header xuất hiện trên tất cả các trang chapter
+\makeatletter
+\renewcommand{\chapter}{\if@openright\cleardoublepage\else\clearpage\fi
+  \thispagestyle{reportstyle}% Áp dụng header cho trang đầu của chapter
+  \global\@topnum\z@
+  \@afterindentfalse
+  \secdef\@chapter\@schapter}
+\makeatother
+
+\begin{document}
+% === TRANG BÌA ===
+\begin{titlepage}
+    \thispagestyle{empty} % Không hiển thị header trên trang bìa
+    \centering
+    \includegraphics[width=4cm]{latex/imgs/logoITSGU.png} \\[1cm]
+    \textbf{\Large TRƯỜNG ĐẠI HỌC SÀI GÒN} \\[0.5cm]
+    \textbf{\Large KHOA CÔNG NGHỆ THÔNG TIN} \\[2cm]
+    {\Huge \textbf{BÁO CÁO ĐỒ ÁN}} \\[2cm]
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|}
+            \hline
+            \textbf{Họ và tên sinh viên} & \textbf{Mã số sinh viên} & \textbf{Lớp} & \textbf{Email} \\
+            \hline
+            Trần Công Nguyên & 3121410352 & DCT1212 & nguyennrdz@gmail.com \\
+            \hline
+            Trần Thị Thủy & 3121410487 & DCT1218 & tranthithuy1375@gmail.com \\
+            \hline
+            Nguyễn Minh Quang & 3121560008 & DKP1211 & minhquangnmq11@gmail.com \\
+            \hline
+            Nguyễn Minh Phi & 3121560067 & DKP1211 & nmphi2710@gmail.com \\
+            \hline
+            Phan Thị Anh Thư & 3121410490 & DCT1212 & anhthu115599@gmail.com \\
+            \hline
+        \end{tabular}
+        
+    \end{center}
+    
+    \vspace{1cm}
+    \textbf{Giảng viên hướng dẫn:} Từ Lãng Phiêu \\
+    \vfill
+    TP. Hồ Chí Minh, \today
+\end{titlepage}
+
+% Đảm bảo mục lục cũng có header
+\pagenumbering{roman} % Sử dụng số La Mã cho mục lục
+\tableofcontents
+\cleardoublepage
+
+% Bắt đầu đánh số trang bằng số Ả Rập từ chapter 1
+\pagenumbering{arabic}
+% Các chapter
+\include{chapter1}
+\include{chapter2}
+\include{chapter3}
+\include{chapter4}
+\include{chapter5}
+\include{chapter6}
+\include{references}
+\end{document}
