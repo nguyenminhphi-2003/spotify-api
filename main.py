@@ -1,4 +1,4 @@
-# main.py
+
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from typing import List, Dict
@@ -6,17 +6,14 @@ import json
 
 app = FastAPI()
 
-# Cấu hình CORS để cho phép Angular frontend kết nối
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Trong môi trường production, hãy chỉ định chính xác origin
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-
-# Lưu trữ các kết nối websocket đang hoạt động
 class ConnectionManager:
     def __init__(self):
         self.active_connections: Dict[str, WebSocket] = {}
@@ -58,8 +55,6 @@ async def get_users():
 @app.websocket("/ws/{client_id}")
 async def websocket_endpoint(websocket: WebSocket, client_id: str):
     await manager.connect(websocket, client_id)
-
-    # Thông báo cho tất cả người dùng về người dùng mới
     user_message = json.dumps({
         "type": "user_joined",
         "user_id": client_id,
@@ -72,9 +67,7 @@ async def websocket_endpoint(websocket: WebSocket, client_id: str):
             data = await websocket.receive_text()
             message_data = json.loads(data)
 
-            # Xác định loại tin nhắn
             if message_data["type"] == "chat":
-                # Gửi tin nhắn đến người nhận cụ thể
                 if "recipient_id" in message_data and message_data["recipient_id"]:
                     recipient_id = message_data["recipient_id"]
                     forward_message = json.dumps({
@@ -84,7 +77,6 @@ async def websocket_endpoint(websocket: WebSocket, client_id: str):
                         "timestamp": message_data.get("timestamp", "")
                     })
                     await manager.send_personal_message(forward_message, recipient_id)
-                # Hoặc phát tán tin nhắn đến tất cả
                 else:
                     broadcast_message = json.dumps({
                         "type": "chat",
@@ -96,7 +88,6 @@ async def websocket_endpoint(websocket: WebSocket, client_id: str):
 
     except WebSocketDisconnect:
         manager.disconnect(client_id)
-        # Thông báo cho tất cả người dùng về người dùng rời đi
         user_left_message = json.dumps({
             "type": "user_left",
             "user_id": client_id,
