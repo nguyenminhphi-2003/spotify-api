@@ -1,4 +1,6 @@
 import datetime
+import string
+
 from mongoengine import Document, StringField, IntField, ListField, LazyReferenceField, ReferenceField, DateTimeField, FloatField
 
 class Artist(Document):
@@ -30,3 +32,17 @@ class Playlist(Document):
     user = StringField()
     songs = ListField(ReferenceField(Song), required=True)
     created_at = DateTimeField(default=datetime.datetime.now())
+
+class Notifications(Document):
+    title = StringField(max_length=1000, required=True)
+    user = StringField()
+    created_at = DateTimeField(default=datetime.datetime.now())
+    meta = {
+        'collection': 'notifications',
+        'indexes': [
+            'user',
+            'created_at',
+        ]
+    }
+
+

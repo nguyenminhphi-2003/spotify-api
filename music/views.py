@@ -48,7 +48,7 @@ class PlaylistViewSet(viewsets.ModelViewSet):
     def get_permissions(self):
         if self.action == 'create':
             permission_classes = [permissions.IsAuthenticated]
-        elif self.action in ['update', 'partial_update', 'destroy']:
+        elif self.action in ['update', 'partial_update']:
             permission_classes = [IsOwnerOrReadOnly]
         else:
             permission_classes = [permissions.AllowAny]
@@ -66,3 +66,8 @@ class PlaylistViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(user=str(self.request.user.id))
 
         return queryset
+
+class NotificationsViewSet(viewsets.ModelViewSet):
+    queryset = Notifications.objects.all()
+    serializer_class = NotificationsSerializer
+    lookup_field = 'id'

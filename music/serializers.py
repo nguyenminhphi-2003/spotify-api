@@ -230,3 +230,9 @@ class PlaylistSerializer(DocumentSerializer):
 
         instance.save()
         return instance
+
+class NotificationsSerializer(DocumentSerializer):
+    class Meta:
+        model = Notifications
+        fields = ['id', 'title', 'user', 'created_at']
+        read_only_fields = ['created_at']
